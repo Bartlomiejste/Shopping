@@ -1,10 +1,36 @@
-import Main from "../../Components/pages/Main/Main";
+import "../../index.css";
+import CircularProgressWithLabel from "../CircularProgressWithLabel/CircularProgressWithLabel"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { isLoading } from "../state/ModeTheme"
+import Main from "../pages/Main/Main";
 
 
-export default function Layout() {
-  return (
-    <div style={{display:"flex", flexWrap:"wrap", alignItems:"center", justifyContent:"space-evenly", marginTop:"150px"}}>
-      <Main />
-    </div>
+
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const spinnerLoading = useSelector(
+    (state: any) => state.spinnerLoading
   );
-}
+  const dispatch = useDispatch();
+ 
+
+  useEffect(() => {
+    dispatch(isLoading);
+    setTimeout(() => {
+      setLoading(spinnerLoading);
+    }, 4000);
+  }, [dispatch, spinnerLoading]);
+
+  return (
+    <>
+      {loading ? (
+        <CircularProgressWithLabel />
+      ) : (
+          <Main />
+      )}
+    </>
+  );
+};
+
+export default App;

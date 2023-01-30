@@ -2,10 +2,12 @@ import * as React from "react";
 import Switch from "@mui/material/Switch";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { toggleTheme } from "../state/themeSlice";
+import { toggleTheme } from "../state/ModeTheme";
+
+
 
 export default function ControlledSwitches() {
-  const value = useSelector((state: any) => state.theme.darkMode);
+  const darkMode = useSelector((state: any) => state.darkMode);
   const dispatch = useDispatch();
   const [checked, setChecked] = React.useState(false);
 
@@ -17,7 +19,7 @@ export default function ControlledSwitches() {
     <>
       <Switch
         sx={{ marginLeft: 8 }}
-        value={value}
+        value={darkMode}
         checked={checked}
         onChange={handleChange}
         inputProps={{ "aria-label": "controlled" }}

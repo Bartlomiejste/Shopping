@@ -12,6 +12,7 @@ export const Box = styled.div`
   .information,
   .buttons {
     display: flex;
+    margin-top:10px;
     justify-content: space-between;
   }
   img {
@@ -19,4 +20,4 @@ export const Box = styled.div`
     object-fit: cover;
     margin-left: 40px;
   }
-`;
+`

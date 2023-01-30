@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "../src/App";
-import { store } from "../src/Components/state/store";
 import { Provider } from "react-redux";
+import { store } from "./Components/state/ModeTheme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

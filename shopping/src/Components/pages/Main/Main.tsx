@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Badge, Box, Drawer, IconButton} from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Item from "../../Item/Item";
+import Items from "../../Item/Items"
 import Cart from "../../Cart/Cart";
 import ControlledSwitches from "../../ControlledSwitches/ControlledSwitches";
 import BottomNavigation from "../../BottomNavigation/BottomNavigation";
@@ -23,6 +23,9 @@ const Main = () => {
   const [products, setProducts] = useState<CartProductType[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
+  
+
+
 
   const getProducts = async (): Promise<CartProductType[]> => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -48,7 +51,6 @@ const Main = () => {
 
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct(prev => {
-      // 1. Is the item already added in the cart?
       const isItemInCart = prev.find(item => item.id === clickedItem.id);
 
       if (isItemInCart) {
@@ -58,7 +60,6 @@ const Main = () => {
             : item
         );
       }
-      // First time the item is added
       return [...prev, { ...clickedItem, amount: 1 }];
     });
   };
@@ -76,14 +77,29 @@ const Main = () => {
     );
   };
 
+  const clearFromCart = (id: number) => {
+    setCartProduct(prev =>
+      prev.reduce((ack, item) => {
+        if (item.id === id) {
+          if (item.amount === 1) return ack;
+          return [...ack];
+        } else {
+          return [...ack, item];
+        }
+      }, [] as CartProductType[])
+    );
+  }
+  
+
 
   return (
-  <ThemeProvider theme={BreakPointTheme}>
+<ThemeProvider theme={BreakPointTheme}>
       <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
         <Cart
           cartProduct={cartProduct}
           addToCart={handleAddToCart}
           removeFromCart={handleRemoveFromCart}
+          clearFromCart={clearFromCart}
         />
       </Drawer>
       <Box sx={{...BoxStyle(BreakPointTheme)}}>
@@ -98,9 +114,11 @@ const Main = () => {
      
       <ControlledSwitches />
       </Box>
+<Box sx={{display: "flex", flexWrap:"wrap", paddingTop: "200px", justifyContent:"space-around", background:"gray"}}>
         {products?.map((product) => (
-          <Item key={product.id} item={product} handleAddToCart={handleAddToCart} />
+          <Items key={product.id} item={product} handleAddToCart={handleAddToCart} />
         ))}
+</Box>
     </ThemeProvider>
   );
 };
