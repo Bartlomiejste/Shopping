@@ -4,9 +4,10 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Items from "../../Item/Items"
 import Cart from "../../Cart/Cart";
 import ControlledSwitches from "../../ControlledSwitches/ControlledSwitches";
-import BottomNavigation from "../../BottomNavigation/BottomNavigation";
 import { ThemeProvider } from "@mui/material/styles";
 import { BoxStyle, BreakPointTheme } from "../../Breakpoints/Demo";
+import { Navigation } from "../../Navigation/Navigation";
+
 
 
 export type CartProductType = {
@@ -103,8 +104,9 @@ const Main = () => {
         />
       </Drawer>
       <Box sx={{...BoxStyle(BreakPointTheme)}}>
+
         
-      <BottomNavigation />
+     <Navigation/>
 
       <IconButton onClick={() => setCartOpen(true)}>
         <Badge badgeContent={getTotalItems(cartProduct)} color='error'>

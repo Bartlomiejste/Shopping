@@ -22,6 +22,7 @@ const getDesignTokens = (mode: any) => ({
           text: {
             secondary: "#fff",
           },
+          backgroundColor:"black"
         }),
   },
 });

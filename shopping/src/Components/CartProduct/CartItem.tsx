@@ -8,7 +8,7 @@ type Props = {
   item: CartProductType;
   addToCart: (clickedItem: CartProductType) => void;
   removeFromCart: (id: number) => void;
-  clearFromCart:(id:number) => void;
+  clearFromCart:(id: number) => void;
 };
 
 const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart,clearFromCart }) => (
