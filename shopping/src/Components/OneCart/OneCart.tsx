@@ -12,7 +12,7 @@ export type CartProductType = {
 };
 
 const OneCart = () => {
-  const [product, setProduct] = useState<CartProductType[]>([]);
+  const [product, setProduct] = useState<CartProductType | null>(null);
   const { id } = useParams();
 
   const getProduct = async () => {
@@ -33,18 +33,14 @@ const OneCart = () => {
 
   return (
 <>
-{Array.isArray(product) ?
-product.map((product) => {
-  return (
-    <div key={product?.id}>
-    <img src={product?.image} alt={product?.title} style={{width: "200px",height: "250px"}} />
-    <div style={{fontWeight:"bold", fontSize:"16px"}}>{product?.title}</div>
-    <div style={{fontSize:"30px", color:"green"}}>${product?.price}</div>
-     </div>
-)
-})
-: null}
-     </>
+{product && (
+      <div key={product.id}>
+        <img src={product.image} alt={product.title} style={{ width: "200px", height: "250px" }} />
+        <div style={{ fontWeight: "bold", fontSize: "16px" }}>{product.title}</div>
+        <div style={{ fontSize: "30px", color: "green" }}>${product.price}</div>
+      </div>
+    )}
+</>
 
   )
 }

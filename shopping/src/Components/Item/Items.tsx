@@ -3,7 +3,7 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { useNavigate } from "react-router-dom";
 import {Button } from '@mui/material';
-import { CartProductType } from "../pages/Main/Main"
+import { CartProductType } from "../../pages/Main/Main"
 
 type Props = {
   item: CartProductType;

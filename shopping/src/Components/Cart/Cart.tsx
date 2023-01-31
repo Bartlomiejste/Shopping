@@ -1,6 +1,6 @@
 import CartItem from "../CartProduct/CartItem"
 import { Box } from './Cart.styles';
-import { CartProductType } from "../pages/Main/Main"
+import { CartProductType } from "../../pages/Main/Main"
 import { Button } from "@mui/material";
 type Props = {
   cartProduct: CartProductType[];
