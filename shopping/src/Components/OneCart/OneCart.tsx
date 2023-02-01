@@ -1,5 +1,8 @@
 import { useEffect,useState } from "react";
 import { useParams } from "react-router-dom";
+import * as React from 'react';
+import {Box} from '@mui/material';
+import Menu from "../../pages/Menu"
 
 export type CartProductType = {
   id: number;
@@ -11,7 +14,11 @@ export type CartProductType = {
   amount: number;
 };
 
-const OneCart = () => {
+
+
+
+const OneCart: React.FC = () => {
+
   const [product, setProduct] = useState<CartProductType | null>(null);
   const { id } = useParams();
 
@@ -32,18 +39,18 @@ const OneCart = () => {
   }, []);
 
   return (
-<>
-{product && (
-      <div key={product.id}>
-        <img src={product.image} alt={product.title} style={{ width: "200px", height: "250px" }} />
-        <div style={{ fontWeight: "bold", fontSize: "16px" }}>{product.title}</div>
-        <div style={{ fontSize: "30px", color: "green" }}>${product.price}</div>
-      </div>
-    )}
-</>
-
+    <>
+    <Menu/>
+    {product && (
+    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"space-around",alignItems:"center"}}>
+    <img src={product.image} alt={product.title} style={{width: "200px",height: "250px"}}/>
+    <div style={{fontWeight:"bold", fontSize:"16px"}}>{product.title}</div>
+    <div style={{fontSize:"30px", color:"green"}}>${product.price}</div>
+     </Box>
+     )}
+     </>
   )
-}
+};
 
 
 export default OneCart

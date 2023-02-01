@@ -3,7 +3,7 @@ import CircularProgressWithLabel from "../CircularProgressWithLabel/CircularProg
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoading } from "../state/ModeTheme"
-import Main from "../../pages/Main/Main";
+import Main from "../../pages/Main";
 
 
 

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 // Types
-import { CartProductType } from "../../pages/Main/Main"
+import { CartProductType } from "../../pages/Main"
 // Styles
 import { Box } from './CartItem.styles';
 

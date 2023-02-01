@@ -7,14 +7,12 @@ const getDesignTokens = (mode: any) => ({
     mode,
     ...(mode === "light"
       ? {
-          // palette values for light mode
           primary: {
             main: "#121212",
             dark: "#F3EFE2",
           },
         }
       : {
-          // palette values for dark mode
           primary: {
             main: "#fff",
             dark: "#121212",
@@ -27,7 +25,7 @@ const getDesignTokens = (mode: any) => ({
   },
 });
 
-export default function DarkTheme(children: any) {
+export default function DarkTheme({children}: { children: React.ReactNode}) {
   const [mode, setMode] = useState("light");
   const darkMode = useSelector((state: any) => state.theme.darkMode);
 

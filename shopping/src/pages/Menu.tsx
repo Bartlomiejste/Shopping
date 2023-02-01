@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Badge, Box, Drawer, IconButton} from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Items from "../../Components/Item/Items"
-import Cart from "../../Components/Cart/Cart";
-import ControlledSwitches from "../../Components/ControlledSwitches/ControlledSwitches";
+import Items from "../Components/Item/Items"
+import Cart from "../Components/Cart/Cart";
+import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import { ThemeProvider } from "@mui/material/styles";
-import { BoxStyle, BreakPointTheme } from "../../Components/Breakpoints/Demo";
-import { Navigation } from "../../Components/Navigation/Navigation";
+import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
+import { Navigation } from "../Components/Navigation/Navigation";
 
 
 
@@ -103,7 +103,7 @@ const Main = () => {
           clearFromCart={clearFromCart}
         />
       </Drawer>
-      <Box sx={{...BoxStyle(BreakPointTheme)}}>
+      <Box sx={{...BoxStyle(BreakPointTheme), marginTop:"350px"}}>
 
         
      <Navigation/>

@@ -1,7 +1,8 @@
-import CartItem from "../CartProduct/CartItem"
+import CartItem from "../../Components/CartProduct/CartItem"
 import { Box } from './Cart.styles';
-import { CartProductType } from "../../pages/Main/Main"
+import { CartProductType } from "../../pages/Main"
 import { Button } from "@mui/material";
+
 type Props = {
   cartProduct: CartProductType[];
   addToCart: (clickedItem: CartProductType) => void;
