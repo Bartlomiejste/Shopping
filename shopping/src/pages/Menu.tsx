@@ -103,7 +103,7 @@ const Main = () => {
           clearFromCart={clearFromCart}
         />
       </Drawer>
-      <Box sx={{...BoxStyle(BreakPointTheme), marginTop:"350px"}}>
+      <Box sx={{...BoxStyle(BreakPointTheme)}}>
 
         
      <Navigation/>

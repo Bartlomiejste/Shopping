@@ -42,10 +42,11 @@ const OneCart: React.FC = () => {
     <>
     <Menu/>
     {product && (
-    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"space-around",alignItems:"center"}}>
+    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"space-around",alignItems:"center", marginTop:"200px"}}>
     <img src={product.image} alt={product.title} style={{width: "200px",height: "250px"}}/>
     <div style={{fontWeight:"bold", fontSize:"16px"}}>{product.title}</div>
     <div style={{fontSize:"30px", color:"green"}}>${product.price}</div>
+    <div>{product.description}</div>
      </Box>
      )}
      </>
