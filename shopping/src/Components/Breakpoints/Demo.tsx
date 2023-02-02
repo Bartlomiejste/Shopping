@@ -1,5 +1,5 @@
 import { ThemeProvider, Theme } from "@mui/material/styles";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import { createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
@@ -33,8 +33,8 @@ const BoxStyle = (BreakPointTheme: Theme) => ({
   justifyContent: "center",
   textAlign: "center",
   height: "150px",
-  top:0,
-  left:0,
+  top: 0,
+  left: 0,
   position: "fixed",
   backgroundColor: "#F3EFE2",
   width: "100%",

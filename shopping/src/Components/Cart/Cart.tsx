@@ -1,7 +1,6 @@
-import CartItem from "../../Components/CartProduct/CartItem"
-import { Box } from './Cart.styles';
-import { CartProductType } from "../../pages/Main"
-import { Button } from "@mui/material";
+import CartItem from "../../Components/CartProduct/CartItem";
+import { CartProductType } from "../../pages/Main";
+import { Box, Button, Typography } from "@mui/material";
 
 type Props = {
   cartProduct: CartProductType[];
@@ -10,15 +9,22 @@ type Props = {
   clearFromCart: (id: number) => void;
 };
 
-const Cart: React.FC<Props> = ({ cartProduct, addToCart, removeFromCart,clearFromCart }) => {
+const Cart = ({
+  cartProduct,
+  addToCart,
+  removeFromCart,
+  clearFromCart,
+}: Props) => {
   const calculateTotal = (items: CartProductType[]) =>
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
 
   return (
-    <Box>
-      <h2>Your Shopping Cart</h2>
-      {cartProduct.length === 0 ? <p>No items in cart.</p> : null}
-      {cartProduct.map(item => (
+    <Box sx={{ width: "50vw", padding: "20px" }}>
+      <Typography variant="h3">Your Shopping Cart</Typography>
+      {cartProduct.length === 0 ? (
+        <Typography>No items in cart.</Typography>
+      ) : null}
+      {cartProduct.map((item) => (
         <CartItem
           key={item.id}
           item={item}
@@ -27,14 +33,12 @@ const Cart: React.FC<Props> = ({ cartProduct, addToCart, removeFromCart,clearFro
           clearFromCart={clearFromCart}
         />
       ))}
-      <h2>Total: ${calculateTotal(cartProduct).toFixed(2)}</h2>
-      <Button
-          size='small'
-          disableElevation
-          variant='contained'
-        >
-       Buy
-        </Button>
+      <Typography variant="h4">
+        Total: ${calculateTotal(cartProduct).toFixed(2)}
+      </Typography>
+      <Button size="large" disableElevation variant="contained">
+        Buy
+      </Button>
     </Box>
   );
 };
