@@ -1,8 +1,8 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import * as React from 'react';
-import {Box} from '@mui/material';
-import Menu from "../../pages/Menu"
+import * as React from "react";
+import { Box } from "@mui/material";
+import Menu from "../../pages/Menu";
 
 export type CartProductType = {
   id: number;
@@ -14,11 +14,7 @@ export type CartProductType = {
   amount: number;
 };
 
-
-
-
 const OneCart: React.FC = () => {
-
   const [product, setProduct] = useState<CartProductType | null>(null);
   const { id } = useParams();
 
@@ -33,25 +29,40 @@ const OneCart: React.FC = () => {
     console.log(data);
     return data;
   };
-  
+
   useEffect(() => {
     getProduct();
   }, []);
 
   return (
     <>
-    <Menu/>
-    {product && (
-    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"space-around",alignItems:"center", marginTop:"200px"}}>
-    <img src={product.image} alt={product.title} style={{width: "200px",height: "250px"}}/>
-    <div style={{fontWeight:"bold", fontSize:"16px"}}>{product.title}</div>
-    <div style={{fontSize:"30px", color:"green"}}>${product.price}</div>
-    <div>{product.description}</div>
-     </Box>
-     )}
-     </>
-  )
+      <Menu />
+      {product && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-around",
+            alignItems: "center",
+            marginTop: "200px",
+          }}
+        >
+          <img
+            src={product.image}
+            alt={product.title}
+            style={{ width: "200px", height: "250px" }}
+          />
+          <div style={{ fontWeight: "bold", fontSize: "16px" }}>
+            {product.title}
+          </div>
+          <div style={{ fontSize: "30px", color: "green" }}>
+            ${product.price}
+          </div>
+          <div>{product.description}</div>
+        </Box>
+      )}
+    </>
+  );
 };
 
-
-export default OneCart
+export default OneCart;

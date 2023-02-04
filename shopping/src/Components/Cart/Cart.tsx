@@ -1,6 +1,6 @@
-import CartItem from "../../Components/CartProduct/CartItem";
 import { CartProductType } from "../../pages/Main";
 import { Box, Button, Typography } from "@mui/material";
+import CartItem from "../CartItem/CartItem";
 
 type Props = {
   cartProduct: CartProductType[];
@@ -20,7 +20,7 @@ const Cart = ({
 
   return (
     <Box sx={{ width: "50vw", padding: "20px" }}>
-      <Typography variant="h3">Your Shopping Cart</Typography>
+      <Typography variant="h4">Your Shopping Cart</Typography>
       {cartProduct.length === 0 ? (
         <Typography>No items in cart.</Typography>
       ) : null}
@@ -33,12 +33,19 @@ const Cart = ({
           clearFromCart={clearFromCart}
         />
       ))}
-      <Typography variant="h4">
-        Total: ${calculateTotal(cartProduct).toFixed(2)}
-      </Typography>
-      <Button size="large" disableElevation variant="contained">
-        Buy
-      </Button>
+      <Box sx={{ marginTop: "40px" }}>
+        <Typography variant="h4">
+          Total: ${calculateTotal(cartProduct).toFixed(2)}
+        </Typography>
+        <Button
+          sx={{ marginTop: "20px" }}
+          size="large"
+          disableElevation
+          variant="contained"
+        >
+          Buy
+        </Button>
+      </Box>
     </Box>
   );
 };
