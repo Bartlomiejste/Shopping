@@ -1,10 +1,10 @@
 import "../../index.css";
-import Menu from "../../pages/Menu";
+import Main from "../../pages/Main";
 
 const App = () => {
   return (
     <>
-      <Menu />
+      <Main />
     </>
   );
 };
