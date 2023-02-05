@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { Badge, Box, Drawer, IconButton} from "@mui/material";
+import { Badge, Box, Drawer, IconButton } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Items from "../Components/Item/Items"
+import Items from "../Components/Item/Items";
 import Cart from "../Components/Cart/Cart";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import { ThemeProvider } from "@mui/material/styles";
 import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
 import { Navigation } from "../Components/Navigation/Navigation";
-
-
 
 export type CartProductType = {
   id: number;
@@ -20,13 +18,10 @@ export type CartProductType = {
   amount: number;
 };
 
-const Main = () => {
+const Menu = () => {
   const [products, setProducts] = useState<CartProductType[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
-  
-
-
 
   const getProducts = async (): Promise<CartProductType[]> => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -44,18 +39,15 @@ const Main = () => {
     getProducts();
   }, []);
 
-
   const getTotalItems = (items: CartProductType[]) =>
-  items.reduce((ack: number, item) => ack + item.amount, 0);
-
-
+    items.reduce((ack: number, item) => ack + item.amount, 0);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
-    setCartProduct(prev => {
-      const isItemInCart = prev.find(item => item.id === clickedItem.id);
+    setCartProduct((prev) => {
+      const isItemInCart = prev.find((item) => item.id === clickedItem.id);
 
       if (isItemInCart) {
-        return prev.map(item =>
+        return prev.map((item) =>
           item.id === clickedItem.id
             ? { ...item, amount: item.amount + 1 }
             : item
@@ -66,7 +58,7 @@ const Main = () => {
   };
 
   const handleRemoveFromCart = (id: number) => {
-    setCartProduct(prev =>
+    setCartProduct((prev) =>
       prev.reduce((ack, item) => {
         if (item.id === id) {
           if (item.amount === 1) return ack;
@@ -79,7 +71,7 @@ const Main = () => {
   };
 
   const clearFromCart = (id: number) => {
-    setCartProduct(prev =>
+    setCartProduct((prev) =>
       prev.reduce((ack, item) => {
         if (item.id === id) {
           if (item.amount === 1) return ack;
@@ -89,13 +81,11 @@ const Main = () => {
         }
       }, [] as CartProductType[])
     );
-  }
-  
-
+  };
 
   return (
-<ThemeProvider theme={BreakPointTheme}>
-      <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
+    <ThemeProvider theme={BreakPointTheme}>
+      <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
         <Cart
           cartProduct={cartProduct}
           addToCart={handleAddToCart}
@@ -103,26 +93,36 @@ const Main = () => {
           clearFromCart={clearFromCart}
         />
       </Drawer>
-      <Box sx={{...BoxStyle(BreakPointTheme)}}>
+      <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
+        <Navigation />
 
-        
-     <Navigation/>
+        <IconButton onClick={() => setCartOpen(true)}>
+          <Badge badgeContent={getTotalItems(cartProduct)} color="error">
+            <AddShoppingCartIcon sx={{ fontSize: 30 }} />
+          </Badge>
+        </IconButton>
 
-      <IconButton onClick={() => setCartOpen(true)}>
-        <Badge badgeContent={getTotalItems(cartProduct)} color='error'>
-          <AddShoppingCartIcon sx={{fontSize: 30}}/>
-        </Badge>
-      </IconButton>
-     
-      <ControlledSwitches />
+        <ControlledSwitches />
       </Box>
-<Box sx={{display: "flex", flexWrap:"wrap", paddingTop: "200px", justifyContent:"space-around", background:"gray"}}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          paddingTop: "200px",
+          justifyContent: "space-around",
+          background: "gray",
+        }}
+      >
         {products?.map((product) => (
-          <Items key={product.id} item={product} handleAddToCart={handleAddToCart} />
+          <Items
+            key={product.id}
+            item={product}
+            handleAddToCart={handleAddToCart}
+          />
         ))}
-</Box>
+      </Box>
     </ThemeProvider>
   );
 };
 
-export default Main;
+export default Menu;

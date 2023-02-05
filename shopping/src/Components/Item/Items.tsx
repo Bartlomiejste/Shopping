@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { CartProductType } from "../../pages/Main";
-
+import { Box } from "@mui/system";
 type Props = {
   item: CartProductType;
   handleAddToCart: (clickedItem: CartProductType) => void;
@@ -44,11 +44,11 @@ const Items = ({ item, handleAddToCart }: Props) => {
           navigate(`/products/${item.id}`);
         }}
       />
-      <div style={{ fontWeight: "bold", fontSize: "16px" }}>{item.title}</div>
-      <div style={{ fontSize: "30px", color: "green" }}>${item.price}</div>
+      <Box style={{ fontWeight: "bold", fontSize: "16px" }}>{item.title}</Box>
+      <Box style={{ fontSize: "30px", color: "green" }}>${item.price}</Box>
       <Button
         onClick={() => handleAddToCart(item)}
-        sx={{ fontSize: "16px", border: "2px solid", borderRadius: "20px" }}
+        sx={{ fontSize: "14px", border: "2px solid", borderRadius: "20px" }}
       >
         Add to cart
       </Button>

@@ -41,24 +41,48 @@ const OneCart: React.FC = () => {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
+            flexWrap: "wrap",
+            paddingTop: "200px",
             justifyContent: "space-around",
-            alignItems: "center",
-            marginTop: "200px",
+            background: "gray",
           }}
         >
-          <img
-            src={product.image}
-            alt={product.title}
-            style={{ width: "200px", height: "250px" }}
-          />
-          <div style={{ fontWeight: "bold", fontSize: "16px" }}>
-            {product.title}
-          </div>
-          <div style={{ fontSize: "30px", color: "green" }}>
-            ${product.price}
-          </div>
-          <div>{product.description}</div>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "200px",
+              height: "500px",
+
+              background: "#fff",
+            }}
+          >
+            <Box>
+              <img
+                src={product.image}
+                alt={product.title}
+                style={{ width: "50%", height: "50%" }}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+
+                justifyContent: "space-around",
+                alignItems: "space-around",
+              }}
+            >
+              <Box style={{ fontWeight: "bold", fontSize: "16px" }}>
+                {product.title}
+              </Box>
+              <Box style={{ fontSize: "30px", color: "green" }}>
+                ${product.price}
+              </Box>
+              <Box>{product.description}</Box>
+            </Box>
+          </Box>
         </Box>
       )}
     </>

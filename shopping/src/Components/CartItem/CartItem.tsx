@@ -78,7 +78,7 @@ const CartItem = ({
               <Button
                 startIcon={<ClearIcon />}
                 onClick={() => clearFromCart(item.id)}
-              ></Button>
+              />
               ${(item.amount * item.price).toFixed(2)}
             </TableCell>
           </TableRow>

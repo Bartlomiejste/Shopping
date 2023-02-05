@@ -7,11 +7,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />} path="/products" />
-          <Route element={<OneCart />} path="/products/:id/" />
-        {/* <Route element={<div>Error 404 - try refresh page</div>} path="*" /> */}
+        <Route element={<Layout />} path="/" />
+        <Route element={<OneCart />} path="/products/:id/" />
+        <Route element={<div>Error 404 - try refresh page</div>} path="*" />
       </Routes>
-      </BrowserRouter>
+    </BrowserRouter>
   );
 };
 
