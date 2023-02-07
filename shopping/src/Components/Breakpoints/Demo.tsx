@@ -36,9 +36,11 @@ const BoxStyle = (BreakPointTheme: Theme) => ({
   top: 0,
   left: 0,
   position: "fixed",
-  backgroundColor: "#F3EFE2",
   width: "100%",
   zIndex: 100,
+  backgroundImage: `url(${require("../../img/2.png")})`,
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
 
   [BreakPointTheme.breakpoints.down("xs")]: {},
   [BreakPointTheme.breakpoints.up("sm")]: {},

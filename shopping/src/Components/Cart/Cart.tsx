@@ -19,7 +19,7 @@ const Cart = ({
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
 
   return (
-    <Box sx={{ width: "50vw", padding: "20px" }}>
+    <Box sx={{ width: "50vw", p: "20px" }}>
       <Typography variant="h4">Your Shopping Cart</Typography>
       {cartProduct.length === 0 ? (
         <Typography>No items in cart.</Typography>
@@ -33,12 +33,12 @@ const Cart = ({
           clearFromCart={clearFromCart}
         />
       ))}
-      <Box sx={{ marginTop: "40px" }}>
+      <Box sx={{ mt: "40px" }}>
         <Typography variant="h4">
           Total: ${calculateTotal(cartProduct).toFixed(2)}
         </Typography>
         <Button
-          sx={{ marginTop: "20px" }}
+          sx={{ mt: "20px" }}
           size="large"
           disableElevation
           variant="contained"

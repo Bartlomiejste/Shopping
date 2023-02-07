@@ -1,14 +1,14 @@
 import "./index.css";
-import Layout from "../src/Components/Layout/Layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import OneCart from "./Components/OneCart/OneCart";
+import OneCart from "./pages/OneCart";
+import Main from "./pages/Main";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />} path="/" />
-        <Route element={<OneCart />} path="/products/:id/" />
+        <Route element={<Main />} path="/" />
+        <Route element={<OneCart />} path="/:id/" />
         <Route element={<div>Error 404 - try refresh page</div>} path="*" />
       </Routes>
     </BrowserRouter>

@@ -41,7 +41,7 @@ const Items = ({ item, handleAddToCart }: Props) => {
         alt={item.title}
         style={{ width: "200px", height: "250px" }}
         onClick={() => {
-          navigate(`/products/${item.id}`);
+          navigate(`/${item.id}`);
         }}
       />
       <Box style={{ fontWeight: "bold", fontSize: "16px" }}>{item.title}</Box>

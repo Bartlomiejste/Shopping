@@ -110,7 +110,9 @@ const Main = () => {
           flexWrap: "wrap",
           paddingTop: "200px",
           justifyContent: "space-around",
-          background: "gray",
+          backgroundImage: `url(${require("../../src/img/4.png")})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       >
         {products?.map((product) => (
