@@ -5,6 +5,10 @@ import { Box, Button } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Navigation } from "../Components/Navigation/Navigation";
+import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
+import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
+import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
 
 export type CartProductType = {
   id: number;
@@ -16,7 +20,19 @@ export type CartProductType = {
   amount: number;
 };
 
-const OneCart: React.FC = () => {
+type Props = {
+  item: CartProductType;
+  handleAddToCart: (clickedItem: CartProductType) => void;
+  cartProduct: CartProductType[];
+  setCartOpen: (clickedItem: boolean) => void;
+};
+
+const OneCart = ({
+  item,
+  handleAddToCart,
+  cartProduct,
+  setCartOpen,
+}: Props) => {
   const [product, setProduct] = useState<CartProductType | null>(null);
   const [value] = React.useState(0);
   const { id } = useParams();
@@ -29,7 +45,6 @@ const OneCart: React.FC = () => {
     }
     const data = await response.json();
     setProduct(data);
-    console.log(data);
     return data;
   };
 
@@ -39,6 +54,11 @@ const OneCart: React.FC = () => {
 
   return (
     <>
+      <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
+        <Navigation />
+        <ShoppingCartIcon cartProduct={cartProduct} setCartOpen={setCartOpen} />
+        <ControlledSwitches />
+      </Box>
       {product && (
         <Box
           sx={{
@@ -95,7 +115,13 @@ const OneCart: React.FC = () => {
                   alignItems: "center",
                 }}
               >
-                <Button variant="outlined">Add to cart</Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleAddToCart(item)}
+                >
+                  Add to cart
+                </Button>
+
                 <BottomNavigation
                   showLabels
                   value={value}

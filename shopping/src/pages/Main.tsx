@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Badge, Box, Drawer, IconButton } from "@mui/material";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Box, Drawer } from "@mui/material";
 import Items from "../Components/Item/Items";
 import Cart from "../Components/Cart/Cart";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import { ThemeProvider } from "@mui/material/styles";
 import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
 import { Navigation } from "../Components/Navigation/Navigation";
+import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
 
 export type CartProductType = {
   id: number;
@@ -31,16 +31,12 @@ const Main = () => {
     }
     const data = await response.json();
     setProducts(data);
-    console.log(data);
     return data;
   };
 
   useEffect(() => {
     getProducts();
   }, []);
-
-  const getTotalItems = (items: CartProductType[]) =>
-    items.reduce((ack: number, item) => ack + item.amount, 0);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct((prev) => {
@@ -93,24 +89,20 @@ const Main = () => {
           clearFromCart={clearFromCart}
         />
       </Drawer>
+
       <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
         <Navigation />
-
-        <IconButton onClick={() => setCartOpen(true)}>
-          <Badge badgeContent={getTotalItems(cartProduct)} color="error">
-            <AddShoppingCartIcon sx={{ fontSize: 30 }} />
-          </Badge>
-        </IconButton>
-
+        <ShoppingCartIcon cartProduct={cartProduct} setCartOpen={setCartOpen} />
         <ControlledSwitches />
       </Box>
+
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
           paddingTop: "200px",
           justifyContent: "space-around",
-          backgroundImage: `url(${require("../../src/img/4.png")})`,
+          backgroundImage: `url(${require("../../src/img/11.png")})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
