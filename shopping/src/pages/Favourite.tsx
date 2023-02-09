@@ -1,12 +1,38 @@
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Navigation } from "../Components/Navigation/Navigation";
+import { Box } from "@mui/material";
+import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
+import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
+import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
+import { CartProductType } from "./Main";
 
-const Favourite: React.FC = () => {
+type Props = {
+  cartProduct: CartProductType[];
+  setCartOpen: (clickedItem: boolean) => void;
+};
+
+const Favourite = ({ cartProduct, setCartOpen }: Props) => {
   return (
-    <BottomNavigation sx={{ background: "transparent" }}>
-      <BottomNavigationAction icon={<FavoriteIcon sx={{ fontSize: 30 }} />} />
-    </BottomNavigation>
+    <>
+      <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
+        <Navigation />
+        <ShoppingCartIcon cartProduct={cartProduct} setCartOpen={setCartOpen} />
+        <ControlledSwitches />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          paddingTop: "200px",
+          justifyContent: "space-around",
+          backgroundImage: `url(${require("../../src/img/11.png")})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          height: "100vh",
+        }}
+      >
+        Here are your favorite products ...
+      </Box>
+    </>
   );
 };
 

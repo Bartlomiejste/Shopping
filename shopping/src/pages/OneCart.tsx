@@ -9,17 +9,8 @@ import { Navigation } from "../Components/Navigation/Navigation";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
 import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
-import FavouriteComponents from "../Components/FavouriteComponents/FavouriteComponents";
-
-export type CartProductType = {
-  id: number;
-  category: string;
-  description: string;
-  image: string;
-  price: number;
-  title: string;
-  amount: number;
-};
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { CartProductType } from "./Main";
 
 type Props = {
   item: CartProductType;
@@ -122,21 +113,9 @@ const OneCart = ({
                 >
                   Add to cart
                 </Button>
-                <FavouriteComponents
-                  item={{
-                    id: 0,
-                    category: "",
-                    description: "",
-                    image: "",
-                    price: 0,
-                    title: "",
-                    amount: 0,
-                  }}
-                  products={[]}
-                  setProducts={function () {
-                    throw new Error("Function not implemented.");
-                  }}
-                />
+                <Button variant="outlined" startIcon={<FavoriteIcon />}>
+                  Favourite
+                </Button>
               </Box>
             </Box>
           </Box>

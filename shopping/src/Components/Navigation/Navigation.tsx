@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import BottomNavigation from "../BottomNavigation/BottomNavigation";
-import Favourite from "../../pages/Favourite";
+import FavouriteNavigation from "../FavouriteNavigation/FavouriteNavigation";
 
 export const Navigation = () => {
   return (
@@ -9,7 +9,7 @@ export const Navigation = () => {
         <BottomNavigation />
       </Link>
       <Link to="/favourite">
-        <Favourite />
+        <FavouriteNavigation />
       </Link>
     </>
   );

@@ -2,7 +2,7 @@ import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import OneCart from "./pages/OneCart";
 import Main from "./pages/Main";
-import Favorite from "@mui/icons-material/Favorite";
+import Favourite from "./pages/Favourite";
 
 const App = () => {
   return (
@@ -32,7 +32,17 @@ const App = () => {
           }
           path="/:id/"
         />
-        <Route element={<Favorite />} path="/favourite" />
+        <Route
+          element={
+            <Favourite
+              cartProduct={[]}
+              setCartOpen={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          }
+          path="/favourite"
+        />
 
         <Route element={<div>Error 404 - try refresh page</div>} path="*" />
       </Routes>
