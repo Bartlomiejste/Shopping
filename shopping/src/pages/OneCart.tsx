@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import * as React from "react";
+// import * as React from "react";
 import { Box, Button } from "@mui/material";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+// import BottomNavigation from "@mui/material/BottomNavigation";
+// import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+// import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Navigation } from "../Components/Navigation/Navigation";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
 import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
+import FavouriteComponents from "../Components/FavouriteComponents/FavouriteComponents";
 
 export type CartProductType = {
   id: number;
@@ -34,7 +35,7 @@ const OneCart = ({
   setCartOpen,
 }: Props) => {
   const [product, setProduct] = useState<CartProductType | null>(null);
-  const [value] = React.useState(0);
+  // const [value] = React.useState(0);
   const { id } = useParams();
 
   const getProduct = async () => {
@@ -121,16 +122,21 @@ const OneCart = ({
                 >
                   Add to cart
                 </Button>
-
-                <BottomNavigation
-                  showLabels
-                  value={value}
-                  // onChange={(event, newValue) => {
-                  //   setValue(newValue); // in bulding to add favourite products
-                  // }}
-                >
-                  <BottomNavigationAction icon={<FavoriteIcon />} />
-                </BottomNavigation>
+                <FavouriteComponents
+                  item={{
+                    id: 0,
+                    category: "",
+                    description: "",
+                    image: "",
+                    price: 0,
+                    title: "",
+                    amount: 0,
+                  }}
+                  products={[]}
+                  setProducts={function () {
+                    throw new Error("Function not implemented.");
+                  }}
+                />
               </Box>
             </Box>
           </Box>
