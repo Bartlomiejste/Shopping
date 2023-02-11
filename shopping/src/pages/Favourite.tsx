@@ -7,11 +7,12 @@ import { CartProductType } from "./Main";
 import { ThemeProvider } from "@mui/material";
 import { Drawer } from "@mui/material";
 import Cart from "../Components/Cart/Cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Favourite = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
+  const [, setProduct] = useState<CartProductType[]>([]);
 
   const clearFromCart = (id: number) => {
     setCartProduct((prev) =>
@@ -25,6 +26,28 @@ const Favourite = () => {
       }, [] as CartProductType[])
     );
   };
+
+  const getProduct = async () => {
+    const response = await fetch("https://fakestoreapi.com/products");
+    if (!response.ok) {
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
+    const data = await response.json();
+    setProduct(data);
+    return data;
+  };
+  useEffect(() => {
+    localStorage.setItem("products", JSON.stringify(cartProduct));
+  }, [cartProduct]);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("products");
+    if (storedCart) {
+      setCartProduct(JSON.parse(storedCart));
+      getProduct();
+    }
+  }, []);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct((prev) => {

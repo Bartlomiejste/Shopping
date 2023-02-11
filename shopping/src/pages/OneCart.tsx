@@ -11,38 +11,17 @@ import Cart from "../Components/Cart/Cart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { CartProductType } from "./Main";
 
-type Props = {
-  products: CartProductType;
-};
-
-const OneCart = ({ products }: Props) => {
-  const [product, setProduct] = useState<CartProductType[]>([]);
-  const { id } = useParams();
+const OneCart = () => {
+  const [product, setProduct] = useState<CartProductType>();
+  const { id } = useParams<string>();
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
-  const [cartOpen, setCartOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState<boolean>(false);
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const handleClick = () => {
     setIsFavorite(!isFavorite);
   };
-
-  // const onFavorite = (favouriteProduct: CartProductType) => {
-  //   setProduct([...product, favouriteProduct]);
-  // };
-  // const onRemoveFavorite = (favouriteProduct: CartProductType) => {
-  //   const filteredList = product.filter(
-  //     (item) => item.id !== favouriteProduct.id
-  //   );
-  //   setProduct(filteredList);
-  // };
-
-  // const ifExists = (favouriteProduct: CartProductType) => {
-  //   if (product.filter((item) => item.id === product.id).length > 0) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
 
   const getProduct = async () => {
     const response = await fetch(`https://fakestoreapi.com/products/${id}`);
@@ -56,7 +35,15 @@ const OneCart = ({ products }: Props) => {
   };
 
   useEffect(() => {
-    getProduct();
+    localStorage.setItem("product", JSON.stringify(cartProduct));
+  }, [cartProduct]);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("product");
+    if (storedCart) {
+      setCartProduct(JSON.parse(storedCart));
+      getProduct();
+    }
   }, []);
 
   const clearFromCart = (id: number) => {
@@ -152,8 +139,8 @@ const OneCart = ({ products }: Props) => {
             >
               <Box>
                 <img
-                  src={products.image}
-                  alt={products.title}
+                  src={product.image}
+                  alt={product.title}
                   style={{ width: "50%", height: "50%" }}
                 />
               </Box>
@@ -168,12 +155,12 @@ const OneCart = ({ products }: Props) => {
                 }}
               >
                 <Box style={{ fontWeight: "bold", fontSize: "16px" }}>
-                  {products.title}
+                  {product.title}
                 </Box>
                 <Box style={{ fontSize: "25px", color: "green" }}>
-                  ${products.price}
+                  ${product.price}
                 </Box>
-                <Box style={{ fontSize: "14px" }}>{products.description}</Box>
+                <Box style={{ fontSize: "14px" }}>{product.description}</Box>
                 <Box
                   sx={{
                     display: "flex",
@@ -183,7 +170,7 @@ const OneCart = ({ products }: Props) => {
                 >
                   <Button
                     variant="outlined"
-                    onClick={() => handleAddToCart(products)}
+                    onClick={() => handleAddToCart(product)}
                   >
                     Add to cart
                   </Button>

@@ -35,8 +35,16 @@ const Main = () => {
   };
 
   useEffect(() => {
-    getProducts();
+    const storedCart = localStorage.getItem("products");
+    if (storedCart) {
+      setCartProduct(JSON.parse(storedCart));
+      getProducts();
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("products", JSON.stringify(cartProduct));
+  }, [cartProduct]);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct((prev) => {

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { CartProductType } from "../../pages/Main";
 import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
 
 type Props = {
   item: CartProductType;
@@ -27,6 +28,31 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Items = ({ item, handleAddToCart }: Props) => {
   const navigate = useNavigate();
+  const [, setProduct] = useState<CartProductType[]>([]);
+  const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
+
+  const getProduct = async () => {
+    const response = await fetch("https://fakestoreapi.com/products");
+    if (!response.ok) {
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
+    const data = await response.json();
+    setProduct(data);
+    return data;
+  };
+  useEffect(() => {
+    localStorage.setItem("products", JSON.stringify(cartProduct));
+  }, [cartProduct]);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("products");
+    if (storedCart) {
+      setCartProduct(JSON.parse(storedCart));
+      getProduct();
+    }
+  }, []);
+
   return (
     <Item
       sx={{
