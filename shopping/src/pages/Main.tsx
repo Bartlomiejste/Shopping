@@ -31,25 +31,21 @@ const Main = () => {
     }
     const data = await response.json();
     setProducts(data);
+    localStorage.setItem("product", JSON.stringify(data));
+    if (!localStorage.getItem("cartProduct")) {
+      localStorage.setItem("cartProduct", "[]");
+    }
     return data;
   };
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("products");
-    if (storedCart) {
-      setCartProduct(JSON.parse(storedCart));
-      getProducts();
-    }
+    getProducts();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(cartProduct));
-  }, [cartProduct]);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-
+      localStorage.setItem("cartProduct", JSON.stringify(cartProduct));
       if (isItemInCart) {
         return prev.map((item) =>
           item.id === clickedItem.id
@@ -57,6 +53,7 @@ const Main = () => {
             : item
         );
       }
+
       return [...prev, { ...clickedItem, amount: 1 }];
     });
   };

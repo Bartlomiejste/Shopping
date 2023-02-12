@@ -29,7 +29,6 @@ const Item = styled(Paper)(({ theme }) => ({
 const Items = ({ item, handleAddToCart }: Props) => {
   const navigate = useNavigate();
   const [, setProduct] = useState<CartProductType[]>([]);
-  const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
 
   const getProduct = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -39,18 +38,15 @@ const Items = ({ item, handleAddToCart }: Props) => {
     }
     const data = await response.json();
     setProduct(data);
+    localStorage.setItem("products", JSON.stringify(data));
+    if (!localStorage.getItem("products")) {
+      localStorage.setItem("products", "[]");
+    }
     return data;
   };
-  useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(cartProduct));
-  }, [cartProduct]);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("products");
-    if (storedCart) {
-      setCartProduct(JSON.parse(storedCart));
-      getProduct();
-    }
+    getProduct();
   }, []);
 
   return (

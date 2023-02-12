@@ -31,19 +31,15 @@ const OneCart = () => {
     }
     const data = await response.json();
     setProduct(data);
+    localStorage.setItem("product", JSON.stringify(data));
+    if (!localStorage.getItem("cartProduct")) {
+      localStorage.setItem("cartProduct", JSON.stringify(cartProduct));
+    }
     return data;
   };
 
   useEffect(() => {
-    localStorage.setItem("product", JSON.stringify(cartProduct));
-  }, [cartProduct]);
-
-  useEffect(() => {
-    const storedCart = localStorage.getItem("product");
-    if (storedCart) {
-      setCartProduct(JSON.parse(storedCart));
-      getProduct();
-    }
+    getProduct();
   }, []);
 
   const clearFromCart = (id: number) => {
@@ -62,7 +58,7 @@ const OneCart = () => {
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-
+      localStorage.setItem("cartProduct", JSON.stringify(cartProduct));
       if (isItemInCart) {
         return prev.map((item) =>
           item.id === clickedItem.id
