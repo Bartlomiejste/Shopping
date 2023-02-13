@@ -38,10 +38,6 @@ const Items = ({ item, handleAddToCart }: Props) => {
     }
     const data = await response.json();
     setProduct(data);
-    localStorage.setItem("products", JSON.stringify(data));
-    if (!localStorage.getItem("products")) {
-      localStorage.setItem("products", "[]");
-    }
     return data;
   };
 

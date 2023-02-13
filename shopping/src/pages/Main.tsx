@@ -31,10 +31,6 @@ const Main = () => {
     }
     const data = await response.json();
     setProducts(data);
-    localStorage.setItem("product", JSON.stringify(data));
-    if (!localStorage.getItem("cartProduct")) {
-      localStorage.setItem("cartProduct", "[]");
-    }
     return data;
   };
 
@@ -45,7 +41,7 @@ const Main = () => {
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-      localStorage.setItem("cartProduct", JSON.stringify(cartProduct));
+
       if (isItemInCart) {
         return prev.map((item) =>
           item.id === clickedItem.id

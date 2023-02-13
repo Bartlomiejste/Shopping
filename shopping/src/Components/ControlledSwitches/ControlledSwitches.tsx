@@ -4,8 +4,6 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { toggleTheme } from "../state/ModeTheme";
 
-
-
 export default function ControlledSwitches() {
   const darkMode = useSelector((state: any) => state.darkMode);
   const dispatch = useDispatch();
