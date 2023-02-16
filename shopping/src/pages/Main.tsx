@@ -109,11 +109,7 @@ const Main = () => {
         }}
       >
         {products?.map((product) => (
-          <Items
-            key={product.id}
-            item={product}
-            handleAddToCart={handleAddToCart}
-          />
+          <Items key={product.id} item={product} />
         ))}
       </Box>
     </ThemeProvider>

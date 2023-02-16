@@ -5,10 +5,11 @@ import { Button } from "@mui/material";
 import { CartProductType } from "../../pages/Main";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../state/ModeTheme";
 
 type Props = {
   item: CartProductType;
-  handleAddToCart: (clickedItem: CartProductType) => void;
 };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -26,9 +27,28 @@ const Item = styled(Paper)(({ theme }) => ({
   },
 }));
 
-const Items = ({ item, handleAddToCart }: Props) => {
+const Items = ({ item }: Props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [, setProduct] = useState<CartProductType[]>([]);
+  const [, setCartProduct] = useState([] as CartProductType[]);
+
+  const handleAddToCart = (clickedItem: CartProductType) => {
+    dispatch(addToCart(item));
+    setCartProduct((prev) => {
+      const isItemInCart = prev.find((item) => item.id === clickedItem.id);
+
+      if (isItemInCart) {
+        return prev.map((item) =>
+          item.id === clickedItem.id
+            ? { ...item, amount: item.amount + 1 }
+            : item
+        );
+      }
+
+      return [...prev, { ...clickedItem, amount: 1 }];
+    });
+  };
 
   const getProduct = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
