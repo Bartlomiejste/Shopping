@@ -9,10 +9,9 @@ type Props = {
   setCartOpen: (clickedItem: boolean) => void;
 };
 
-const getTotalItems = (items: CartProductType[]) =>
-  items.reduce((ack: number, item) => ack + item.amount, 0);
-
 const ShoppingCartIcon = ({ cartProduct, setCartOpen }: Props) => {
+  const getTotalItems = (items: CartProductType[]) =>
+    items.reduce((ack: number, item) => ack + item.amount, 0);
   return (
     <BottomNavigation
       sx={{

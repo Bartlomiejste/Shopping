@@ -7,6 +7,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
 import { Navigation } from "../Components/Navigation/Navigation";
 import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
+import { fetchProducts } from "../Components/state/productsSlice";
+import { useAppDispatch, useAppSelector } from "../Components/state/hooks";
+import CircularProgressWithLabel from "../Components/CircularProgressWithLabel/CircularProgressWithLabel";
 
 export type CartProductType = {
   id: number;
@@ -16,26 +19,30 @@ export type CartProductType = {
   price: number;
   title: string;
   amount: number;
+  quantity: number;
 };
 
 const Main = () => {
-  const [products, setProducts] = useState<CartProductType[]>([]);
+  // const [products, setProducts] = useState<CartProductType[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
+  const products = useAppSelector((state) => state.products);
 
-  const getProducts = async (): Promise<CartProductType[]> => {
-    const response = await fetch("https://fakestoreapi.com/products");
-    if (!response.ok) {
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
-    }
-    const data = await response.json();
-    setProducts(data);
-    return data;
-  };
+  // const getProducts = async (): Promise<CartProductType[]> => {
+  //   const response = await fetch("https://fakestoreapi.com/products");
+  //   if (!response.ok) {
+  //     const message = `An error has occured: ${response.status}`;
+  //     throw new Error(message);
+  //   }
+  //   const data = await response.json();
+  //   setProducts(data);
+  //   return data;
+  // };
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getProducts();
+    dispatch(fetchProducts());
   }, []);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
@@ -96,21 +103,33 @@ const Main = () => {
         <ShoppingCartIcon cartProduct={cartProduct} setCartOpen={setCartOpen} />
         <ControlledSwitches />
       </Box>
+      <Box>
+        {products.loading && <CircularProgressWithLabel />}
+        {!products.loading && products.error ? (
+          <Box>Error: {products.error}</Box>
+        ) : null}
 
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          paddingTop: "200px",
-          justifyContent: "space-around",
-          backgroundImage: `url(${require("../../src/img/11.png")})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
-        {products?.map((product) => (
-          <Items key={product.id} item={product} />
-        ))}
+        {!products.loading && products.products.length ? (
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              paddingTop: "200px",
+              justifyContent: "space-around",
+              backgroundImage: `url(${require("../../src/img/11.png")})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
+          >
+            {products.products.map((products) => (
+              <Items
+                key={products.id}
+                item={products}
+                handleAddToCart={handleAddToCart}
+              />
+            ))}
+          </Box>
+        ) : null}
       </Box>
     </ThemeProvider>
   );

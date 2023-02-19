@@ -2,7 +2,7 @@ import * as React from "react";
 import Switch from "@mui/material/Switch";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { toggleTheme } from "../state/ModeTheme";
+import { toggleTheme } from "../state/darkMode";
 
 export default function ControlledSwitches() {
   const darkMode = useSelector((state: any) => state.darkMode);

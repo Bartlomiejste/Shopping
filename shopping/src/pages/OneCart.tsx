@@ -16,7 +16,6 @@ const OneCart = () => {
   const { id } = useParams<string>();
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
-
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -38,22 +37,11 @@ const OneCart = () => {
     getProduct();
   }, []);
 
-  const clearFromCart = (id: number) => {
-    setCartProduct((prev) =>
-      prev.reduce((ack, item) => {
-        if (item.id === id) {
-          if (item.amount === 1) return ack;
-          return [...ack];
-        } else {
-          return [...ack, item];
-        }
-      }, [] as CartProductType[])
-    );
-  };
-
   const handleAddToCart = (clickedItem: CartProductType) => {
+    localStorage.setItem("localCart", JSON.stringify(product));
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
+
       if (isItemInCart) {
         return prev.map((item) =>
           item.id === clickedItem.id
@@ -61,6 +49,7 @@ const OneCart = () => {
             : item
         );
       }
+
       return [...prev, { ...clickedItem, amount: 1 }];
     });
   };
@@ -71,6 +60,19 @@ const OneCart = () => {
         if (item.id === id) {
           if (item.amount === 1) return ack;
           return [...ack, { ...item, amount: item.amount - 1 }];
+        } else {
+          return [...ack, item];
+        }
+      }, [] as CartProductType[])
+    );
+  };
+
+  const clearFromCart = (id: number) => {
+    setCartProduct((prev) =>
+      prev.reduce((ack, item) => {
+        if (item.id === id) {
+          if (item.amount === 1) return ack;
+          return [...ack];
         } else {
           return [...ack, item];
         }
