@@ -4,9 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { CartProductType } from "../../pages/Main";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
-// import { addToCart } from "../state/ModeTheme";
-// import { useDispatch } from "react-redux";
 
 type Props = {
   item: CartProductType;
@@ -30,24 +27,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Items = ({ item, handleAddToCart }: Props) => {
   const navigate = useNavigate();
-  const [, setProduct] = useState<CartProductType[]>([]);
-  // const dispatch = useDispatch();
-
-  const getProduct = async () => {
-    const response = await fetch("https://fakestoreapi.com/products");
-    if (!response.ok) {
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
-    }
-    const data = await response.json();
-    setProduct(data);
-    return data;
-  };
-
-  useEffect(() => {
-    getProduct();
-  }, []);
-
   return (
     <Item
       sx={{

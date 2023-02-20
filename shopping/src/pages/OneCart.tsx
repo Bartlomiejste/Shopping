@@ -4,7 +4,7 @@ import { Box, Button, ThemeProvider } from "@mui/material";
 import { Navigation } from "../Components/Navigation/Navigation";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
-import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
+import { BoxStyle, BreakPointTheme } from "../Components/BreakpointsMenu/Menu";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Drawer } from "@mui/material";
 import Cart from "../Components/Cart/Cart";
@@ -16,10 +16,18 @@ const OneCart = () => {
   const { id } = useParams<string>();
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
+
+  const [favourites, setFavourites] = useState<CartProductType[]>([]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  const handleClick = () => {
+  const addToFavourite = (clickedItem: CartProductType) => {
     setIsFavorite(!isFavorite);
+    if (!favourites.includes(clickedItem)) {
+      setFavourites([...favourites, clickedItem]);
+    } else {
+      setFavourites([...favourites.filter((item) => item !== clickedItem)]);
+    }
+    return;
   };
 
   const getProduct = async () => {
@@ -38,10 +46,8 @@ const OneCart = () => {
   }, []);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
-    localStorage.setItem("localCart", JSON.stringify(product));
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-
       if (isItemInCart) {
         return prev.map((item) =>
           item.id === clickedItem.id
@@ -169,7 +175,7 @@ const OneCart = () => {
                   </Button>
                   <Button
                     variant="outlined"
-                    onClick={handleClick}
+                    onClick={() => addToFavourite(product)}
                     aria-label="add to favorites"
                   >
                     {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
@@ -180,6 +186,20 @@ const OneCart = () => {
             </Box>
           </Box>
         )}
+
+        <Box>
+          {favourites.length ? (
+            favourites?.map((product) => (
+              <img
+                src={product.image}
+                alt={product.title}
+                style={{ width: "50%", height: "50%" }}
+              />
+            ))
+          ) : (
+            <p>You don't have to favourite product</p>
+          )}
+        </Box>
       </ThemeProvider>
     </>
   );

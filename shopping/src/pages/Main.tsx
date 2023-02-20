@@ -4,7 +4,7 @@ import Items from "../Components/Item/Items";
 import Cart from "../Components/Cart/Cart";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import { ThemeProvider } from "@mui/material/styles";
-import { BoxStyle, BreakPointTheme } from "../Components/Breakpoints/Demo";
+import { BoxStyle, BreakPointTheme } from "../Components/BreakpointsMenu/Menu";
 import { Navigation } from "../Components/Navigation/Navigation";
 import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
 import { fetchProducts } from "../Components/state/productsSlice";
@@ -23,22 +23,9 @@ export type CartProductType = {
 };
 
 const Main = () => {
-  // const [products, setProducts] = useState<CartProductType[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
   const products = useAppSelector((state) => state.products);
-
-  // const getProducts = async (): Promise<CartProductType[]> => {
-  //   const response = await fetch("https://fakestoreapi.com/products");
-  //   if (!response.ok) {
-  //     const message = `An error has occured: ${response.status}`;
-  //     throw new Error(message);
-  //   }
-  //   const data = await response.json();
-  //   setProducts(data);
-  //   return data;
-  // };
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
