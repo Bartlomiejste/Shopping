@@ -1,5 +1,5 @@
 import { Navigation } from "../Components/Navigation/Navigation";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { BoxStyle, BreakPointTheme } from "../Components/BreakpointsMenu/Menu";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
@@ -8,30 +8,21 @@ import { ThemeProvider } from "@mui/material";
 import { Drawer } from "@mui/material";
 import Cart from "../Components/Cart/Cart";
 import { useEffect, useState } from "react";
+import { Button } from "@mui/material";
+import { experimentalStyled as styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 
-function Favourite() {
-  const [, setProduct] = useState<CartProductType[]>([]);
+const Favourite = () => {
   const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
+  const [favourites, setFavourites] = useState<CartProductType[]>([]);
 
   useEffect(() => {
-    const url = `https://fakestoreapi.com/products`;
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url).then((res) => res.json());
-        setProduct(response);
-      } catch (err) {
-        if (err instanceof Error) {
-          if (err.name === "AbortError") {
-            console.log("api request has been cancelled");
-          }
-          console.log(err.name);
-        } else {
-          console.log("This is an unknown error");
-        }
-      }
-    };
-    fetchData();
+    const favouriteProduct = localStorage.getItem("clickedItem");
+    if (favouriteProduct) {
+      const parsedProduct = JSON.parse(favouriteProduct);
+      setFavourites([parsedProduct]);
+    }
   }, []);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
@@ -74,6 +65,21 @@ function Favourite() {
       }, [] as CartProductType[])
     );
   };
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "black" : "white",
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+    height: "450px",
+    width: "300px",
+    margin: "20px",
+    "img:hover": {
+      transform: "scale(1.1)",
+      cursor: "pointer",
+    },
+  }));
   return (
     <>
       <ThemeProvider theme={BreakPointTheme}>
@@ -99,25 +105,57 @@ function Favourite() {
           <ControlledSwitches />
         </Box>
 
-        {/* {favourites.length ? (
-          favourites?.map(
-            (product: {
-              image: string | undefined;
-              title: string | undefined;
-            }) => (
-              <img
-                src={product.image}
-                alt={product.title}
-                style={{ width: "50%", height: "50%" }}
-              />
-            )
-          )
-        ) : (
-          <p>You don't have to favourite product</p>
-        )} */}
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            paddingTop: "200px",
+            justifyContent: "space-around",
+            backgroundImage: `url(${require("../../src/img/11.png")})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            height: "100vh",
+          }}
+        >
+          {favourites.length ? (
+            favourites?.map((product) => (
+              <Item
+                key={product.id}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  style={{ width: "180px", height: "220px" }}
+                />
+                <Box style={{ fontWeight: "bold", fontSize: "16px" }}>
+                  {product.title}
+                </Box>
+                <Box style={{ fontSize: "30px", color: "green" }}>
+                  ${product.price}
+                </Box>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Add to cart
+                </Button>
+              </Item>
+            ))
+          ) : (
+            <Typography sx={{ marginTop: "200px" }}>
+              You don't have a favourite product
+            </Typography>
+          )}
+        </Box>
       </ThemeProvider>
     </>
   );
-}
+};
 
 export default Favourite;

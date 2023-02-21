@@ -21,6 +21,7 @@ const OneCart = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const addToFavourite = (clickedItem: CartProductType) => {
+    localStorage.setItem("clickedItem", JSON.stringify(clickedItem));
     setIsFavorite(!isFavorite);
     if (!favourites.includes(clickedItem)) {
       setFavourites([...favourites, clickedItem]);
@@ -186,20 +187,6 @@ const OneCart = () => {
             </Box>
           </Box>
         )}
-
-        <Box>
-          {favourites.length ? (
-            favourites?.map((product) => (
-              <img
-                src={product.image}
-                alt={product.title}
-                style={{ width: "50%", height: "50%" }}
-              />
-            ))
-          ) : (
-            <p>You don't have to favourite product</p>
-          )}
-        </Box>
       </ThemeProvider>
     </>
   );
