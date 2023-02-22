@@ -18,10 +18,10 @@ const Favourite = () => {
   const [favourites, setFavourites] = useState<CartProductType[]>([]);
 
   useEffect(() => {
-    const favouriteProduct = localStorage.getItem("clickedItem");
-    if (favouriteProduct) {
-      const parsedProduct = JSON.parse(favouriteProduct);
-      setFavourites([parsedProduct]);
+    const favouriteProducts = localStorage.getItem("clickedItem");
+    if (favouriteProducts) {
+      const parsedProduct = JSON.parse(favouriteProducts);
+      setFavourites(parsedProduct);
     }
   }, []);
 
@@ -99,7 +99,7 @@ const Favourite = () => {
         <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
           <Navigation />
           <ShoppingCartIcon
-            cartProduct={cartProduct}
+            cartProducts={cartProduct}
             setCartOpen={setCartOpen}
           />
           <ControlledSwitches />

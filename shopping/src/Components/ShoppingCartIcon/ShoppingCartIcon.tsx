@@ -5,11 +5,12 @@ import { CartProductType } from "../../pages/Main";
 import BottomNavigation from "@mui/material/BottomNavigation";
 
 type Props = {
-  cartProduct: CartProductType[];
+  cartProducts: CartProductType[];
   setCartOpen: (clickedItem: boolean) => void;
 };
 
-const ShoppingCartIcon = ({ cartProduct, setCartOpen }: Props) => {
+const ShoppingCartIcon = ({ cartProducts, setCartOpen }: Props) => {
+  console.log("cart", cartProducts);
   const getTotalItems = (items: CartProductType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);
   return (
@@ -19,7 +20,7 @@ const ShoppingCartIcon = ({ cartProduct, setCartOpen }: Props) => {
       }}
     >
       <IconButton onClick={() => setCartOpen(true)}>
-        <Badge badgeContent={getTotalItems(cartProduct)} color="error">
+        <Badge badgeContent={getTotalItems(cartProducts)} color="error">
           <AddShoppingCartIcon sx={{ fontSize: 30 }} />
         </Badge>
       </IconButton>

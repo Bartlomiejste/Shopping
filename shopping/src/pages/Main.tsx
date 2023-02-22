@@ -24,7 +24,7 @@ export type CartProductType = {
 
 const Main = () => {
   const [cartOpen, setCartOpen] = useState(false);
-  const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
+  const [cartProduct, setCartProduct] = useState<CartProductType[]>([]);
   const products = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
 
@@ -32,19 +32,34 @@ const Main = () => {
     dispatch(fetchProducts());
   }, []);
 
+  useEffect(() => {
+    const allProducts = localStorage.getItem("shoppingCart");
+    if (allProducts) {
+      const parsedProduct = JSON.parse(allProducts);
+      setCartProduct(parsedProduct);
+    }
+  }, []);
+
   const handleAddToCart = (clickedItem: CartProductType) => {
+    // sprawdzic czy jest jak jest -> +1
+    // nie ma -> wrzucasz
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-
       if (isItemInCart) {
-        return prev.map((item) =>
+        const allProducts = prev.map((item) =>
           item.id === clickedItem.id
             ? { ...item, amount: item.amount + 1 }
             : item
         );
+        localStorage.setItem("shoppingCart", JSON.stringify([...prev]));
+        return allProducts;
+      } else {
+        localStorage.setItem(
+          "shoppingCart",
+          JSON.stringify([...prev, { ...clickedItem, amount: 1 }])
+        );
+        return [...prev, { ...clickedItem, amount: 1 }];
       }
-
-      return [...prev, { ...clickedItem, amount: 1 }];
     });
   };
 
@@ -87,7 +102,10 @@ const Main = () => {
 
       <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
         <Navigation />
-        <ShoppingCartIcon cartProduct={cartProduct} setCartOpen={setCartOpen} />
+        <ShoppingCartIcon
+          cartProducts={cartProduct}
+          setCartOpen={setCartOpen}
+        />
         <ControlledSwitches />
       </Box>
       <Box>

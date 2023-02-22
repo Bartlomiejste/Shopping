@@ -14,21 +14,45 @@ import { CartProductType } from "./Main";
 const OneCart = () => {
   const [product, setProduct] = useState<CartProductType>();
   const { id } = useParams<string>();
-  const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
+  const [cartProducts, setCartProduct] = useState([] as CartProductType[]);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
 
   const [favourites, setFavourites] = useState<CartProductType[]>([]);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
+  useEffect(() => {
+    const prevItems = localStorage.getItem("clickedItem");
+    console.log(prevItems);
+    const favProducts = prevItems ? JSON.parse(prevItems) : [];
+    const productIdFromFav: number[] = favProducts.map((el: any) => el.id);
+    if (productIdFromFav.includes(Number(id))) {
+      setIsFavorite(true);
+    }
+  }, []);
+
   const addToFavourite = (clickedItem: CartProductType) => {
-    localStorage.setItem("clickedItem", JSON.stringify(clickedItem));
-    setIsFavorite(!isFavorite);
+    const prevItems = localStorage.getItem("clickedItem");
+    const favProducts = prevItems ? JSON.parse(prevItems) : [];
+    const newValue = JSON.stringify([...favProducts, clickedItem]);
+    localStorage.setItem("clickedItem", newValue);
+    setIsFavorite(true);
     if (!favourites.includes(clickedItem)) {
       setFavourites([...favourites, clickedItem]);
     } else {
       setFavourites([...favourites.filter((item) => item !== clickedItem)]);
     }
+    console.log("add to fav", newValue);
     return;
+  };
+
+  const removeFromFavourite = (clickedItem: CartProductType) => {
+    const prevItems = localStorage.getItem("clickedItem");
+    const favProducts = prevItems ? JSON.parse(prevItems) : [];
+    const newFavProducts = favProducts.filter((el: any) => {
+      return el.id !== clickedItem.id;
+    });
+    setIsFavorite(false);
+    localStorage.setItem("clickedItem", JSON.stringify(newFavProducts));
   };
 
   const getProduct = async () => {
@@ -96,7 +120,7 @@ const OneCart = () => {
           onClose={() => setCartOpen(false)}
         >
           <Cart
-            cartProduct={cartProduct}
+            cartProduct={cartProducts}
             addToCart={handleAddToCart}
             removeFromCart={handleRemoveFromCart}
             clearFromCart={clearFromCart}
@@ -106,7 +130,7 @@ const OneCart = () => {
         <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
           <Navigation />
           <ShoppingCartIcon
-            cartProduct={cartProduct}
+            cartProducts={cartProducts}
             setCartOpen={setCartOpen}
           />
           <ControlledSwitches />
@@ -176,7 +200,11 @@ const OneCart = () => {
                   </Button>
                   <Button
                     variant="outlined"
-                    onClick={() => addToFavourite(product)}
+                    onClick={() =>
+                      !isFavorite
+                        ? addToFavourite(product)
+                        : removeFromFavourite(product)
+                    }
                     aria-label="add to favorites"
                   >
                     {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}

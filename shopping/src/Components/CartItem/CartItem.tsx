@@ -57,9 +57,9 @@ const CartItem = ({
                   size="small"
                   disableElevation
                   variant="contained"
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => addToCart(item)}
                 >
-                  -
+                  +
                 </Button>
                 <Typography sx={{ margin: "0px 10px" }}>
                   {item.amount}
@@ -68,13 +68,13 @@ const CartItem = ({
                   size="small"
                   disableElevation
                   variant="contained"
-                  onClick={() => addToCart(item)}
+                  onClick={() => removeFromCart(item.id)}
                 >
-                  +
+                  -
                 </Button>
               </TableCell>
             </TableCell>
-            <TableCell align="right">
+            <TableCell sx={{ width: "200px" }} align="right">
               <Button
                 startIcon={<ClearIcon />}
                 onClick={() => clearFromCart(item.id)}
