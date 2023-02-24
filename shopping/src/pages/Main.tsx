@@ -30,9 +30,6 @@ const Main = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
-
-  useEffect(() => {
     const allProducts = localStorage.getItem("shoppingCart");
     if (allProducts) {
       const parsedProduct = JSON.parse(allProducts);
@@ -41,8 +38,6 @@ const Main = () => {
   }, []);
 
   const handleAddToCart = (clickedItem: CartProductType) => {
-    // sprawdzic czy jest jak jest -> +1
-    // nie ma -> wrzucasz
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
       if (isItemInCart) {
@@ -51,7 +46,7 @@ const Main = () => {
             ? { ...item, amount: item.amount + 1 }
             : item
         );
-        localStorage.setItem("shoppingCart", JSON.stringify([...prev]));
+        localStorage.setItem("shoppingCart", JSON.stringify([...allProducts]));
         return allProducts;
       } else {
         localStorage.setItem(
@@ -67,8 +62,28 @@ const Main = () => {
     setCartProduct((prev) =>
       prev.reduce((ack, item) => {
         if (item.id === id) {
-          if (item.amount === 1) return ack;
-          return [...ack, { ...item, amount: item.amount - 1 }];
+          if (item.amount === 1) {
+            const updatedCartData = prev.filter(
+              (cartItem) => cartItem.id !== id
+            );
+            localStorage.setItem(
+              "shoppingCart",
+              JSON.stringify(updatedCartData)
+            );
+            return updatedCartData;
+          } else {
+            // decrease item amount by 1
+            const updatedCartData = prev.map((cartItem) =>
+              cartItem.id === id
+                ? { ...cartItem, amount: cartItem.amount - 1 }
+                : cartItem
+            );
+            localStorage.setItem(
+              "shoppingCart",
+              JSON.stringify(updatedCartData)
+            );
+            return updatedCartData;
+          }
         } else {
           return [...ack, item];
         }
@@ -79,6 +94,7 @@ const Main = () => {
   const clearFromCart = (id: number) => {
     setCartProduct((prev) =>
       prev.reduce((ack, item) => {
+        localStorage.removeItem("shoppingCart");
         if (item.id === id) {
           if (item.amount === 1) return ack;
           return [...ack];
@@ -94,8 +110,8 @@ const Main = () => {
       <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
         <Cart
           cartProduct={cartProduct}
-          addToCart={handleAddToCart}
-          removeFromCart={handleRemoveFromCart}
+          handleAddToCart={handleAddToCart}
+          handleRemoveFromCart={handleRemoveFromCart}
           clearFromCart={clearFromCart}
         />
       </Drawer>

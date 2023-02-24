@@ -11,15 +11,15 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 type Props = {
   item: CartProductType;
-  addToCart: (clickedItem: CartProductType) => void;
-  removeFromCart: (id: number) => void;
+  handleAddToCart: (clickedItem: CartProductType) => void;
+  handleRemoveFromCart: (id: number) => void;
   clearFromCart: (id: number) => void;
 };
 
 const CartItem = ({
   item,
-  addToCart,
-  removeFromCart,
+  handleAddToCart,
+  handleRemoveFromCart,
   clearFromCart,
 }: Props) => {
   return (
@@ -57,7 +57,7 @@ const CartItem = ({
                   size="small"
                   disableElevation
                   variant="contained"
-                  onClick={() => addToCart(item)}
+                  onClick={() => handleAddToCart(item)}
                 >
                   +
                 </Button>
@@ -68,13 +68,13 @@ const CartItem = ({
                   size="small"
                   disableElevation
                   variant="contained"
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => handleRemoveFromCart(item.id)}
                 >
                   -
                 </Button>
               </TableCell>
             </TableCell>
-            <TableCell sx={{ width: "200px" }} align="right">
+            <TableCell align="right">
               <Button
                 startIcon={<ClearIcon />}
                 onClick={() => clearFromCart(item.id)}

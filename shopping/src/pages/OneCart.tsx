@@ -30,6 +30,18 @@ const OneCart = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const allProducts = localStorage.getItem("shoppingCart");
+    if (allProducts) {
+      const parsedProduct = JSON.parse(allProducts);
+      setCartProduct(parsedProduct);
+    }
+  }, []);
+
+  useEffect(() => {
+    getProduct();
+  }, []);
+
   const addToFavourite = (clickedItem: CartProductType) => {
     const prevItems = localStorage.getItem("clickedItem");
     const favProducts = prevItems ? JSON.parse(prevItems) : [];
@@ -66,22 +78,24 @@ const OneCart = () => {
     return data;
   };
 
-  useEffect(() => {
-    getProduct();
-  }, []);
-
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
       if (isItemInCart) {
-        return prev.map((item) =>
+        const allProducts = prev.map((item) =>
           item.id === clickedItem.id
             ? { ...item, amount: item.amount + 1 }
             : item
         );
+        localStorage.setItem("shoppingCart", JSON.stringify([...prev]));
+        return allProducts;
+      } else {
+        localStorage.setItem(
+          "shoppingCart",
+          JSON.stringify([...prev, { ...clickedItem, amount: 1 }])
+        );
+        return [...prev, { ...clickedItem, amount: 1 }];
       }
-
-      return [...prev, { ...clickedItem, amount: 1 }];
     });
   };
 
@@ -101,6 +115,7 @@ const OneCart = () => {
   const clearFromCart = (id: number) => {
     setCartProduct((prev) =>
       prev.reduce((ack, item) => {
+        localStorage.removeItem("shoppingCart");
         if (item.id === id) {
           if (item.amount === 1) return ack;
           return [...ack];
@@ -121,8 +136,8 @@ const OneCart = () => {
         >
           <Cart
             cartProduct={cartProducts}
-            addToCart={handleAddToCart}
-            removeFromCart={handleRemoveFromCart}
+            handleAddToCart={handleAddToCart}
+            handleRemoveFromCart={handleRemoveFromCart}
             clearFromCart={clearFromCart}
           />
         </Drawer>

@@ -25,6 +25,14 @@ const Favourite = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const allProducts = localStorage.getItem("shoppingCart");
+    if (allProducts) {
+      const parsedProduct = JSON.parse(allProducts);
+      setCartProduct(parsedProduct);
+    }
+  }, []);
+
   const handleAddToCart = (clickedItem: CartProductType) => {
     setCartProduct((prev) => {
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
@@ -56,6 +64,7 @@ const Favourite = () => {
   const clearFromCart = (id: number) => {
     setCartProduct((prev) =>
       prev.reduce((ack, item) => {
+        localStorage.removeItem("shoppingCart");
         if (item.id === id) {
           if (item.amount === 1) return ack;
           return [...ack];
@@ -80,6 +89,7 @@ const Favourite = () => {
       cursor: "pointer",
     },
   }));
+
   return (
     <>
       <ThemeProvider theme={BreakPointTheme}>
@@ -90,8 +100,8 @@ const Favourite = () => {
         >
           <Cart
             cartProduct={cartProduct}
-            addToCart={handleAddToCart}
-            removeFromCart={handleRemoveFromCart}
+            handleAddToCart={handleAddToCart}
+            handleRemoveFromCart={handleRemoveFromCart}
             clearFromCart={clearFromCart}
           />
         </Drawer>

@@ -4,15 +4,15 @@ import CartItem from "../CartItem/CartItem";
 
 type Props = {
   cartProduct: CartProductType[];
-  addToCart: (clickedItem: CartProductType) => void;
-  removeFromCart: (id: number) => void;
+  handleAddToCart: (clickedItem: CartProductType) => void;
+  handleRemoveFromCart: (id: number) => void;
   clearFromCart: (id: number) => void;
 };
 
 const Cart = ({
   cartProduct,
-  addToCart,
-  removeFromCart,
+  handleAddToCart,
+  handleRemoveFromCart,
   clearFromCart,
 }: Props) => {
   const calculateTotal = (items: CartProductType[]) =>
@@ -28,8 +28,8 @@ const Cart = ({
         <CartItem
           key={item.id}
           item={item}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
+          handleAddToCart={handleAddToCart}
+          handleRemoveFromCart={handleRemoveFromCart}
           clearFromCart={clearFromCart}
         />
       ))}
