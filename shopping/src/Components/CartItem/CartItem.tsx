@@ -13,14 +13,14 @@ type Props = {
   item: CartProductType;
   handleAddToCart: (clickedItem: CartProductType) => void;
   handleRemoveFromCart: (id: number) => void;
-  clearFromCart: (id: number) => void;
+  handleClearFromCart: (id: number) => void;
 };
 
 const CartItem = ({
   item,
   handleAddToCart,
   handleRemoveFromCart,
-  clearFromCart,
+  handleClearFromCart,
 }: Props) => {
   return (
     <TableContainer component={Paper}>
@@ -77,7 +77,7 @@ const CartItem = ({
             <TableCell align="right">
               <Button
                 startIcon={<ClearIcon />}
-                onClick={() => clearFromCart(item.id)}
+                onClick={() => handleClearFromCart(item.id)}
               />
               ${(item.amount * item.price).toFixed(2)}
             </TableCell>

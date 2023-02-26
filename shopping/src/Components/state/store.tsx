@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productsReducer from "../state/productsSlice";
+import clearReducer from "../state/productClear";
 
 const store = configureStore({
   reducer: {
     products: productsReducer,
+    clear: clearReducer,
   },
 });
 

@@ -59,50 +59,31 @@ const Main = () => {
   };
 
   const handleRemoveFromCart = (id: number) => {
-    setCartProduct((prev) =>
-      prev.reduce((ack, item) => {
-        if (item.id === id) {
-          if (item.amount === 1) {
-            const updatedCartData = prev.filter(
-              (cartItem) => cartItem.id !== id
-            );
-            localStorage.setItem(
-              "shoppingCart",
-              JSON.stringify(updatedCartData)
-            );
-            return updatedCartData;
+    setCartProduct((prev) => {
+      const updatedCartData = prev
+        .map((cartItem) => {
+          if (cartItem.id === id) {
+            if (cartItem.amount === 1) {
+              return null;
+            } else {
+              return { ...cartItem, amount: cartItem.amount - 1 };
+            }
           } else {
-            // decrease item amount by 1
-            const updatedCartData = prev.map((cartItem) =>
-              cartItem.id === id
-                ? { ...cartItem, amount: cartItem.amount - 1 }
-                : cartItem
-            );
-            localStorage.setItem(
-              "shoppingCart",
-              JSON.stringify(updatedCartData)
-            );
-            return updatedCartData;
+            return cartItem;
           }
-        } else {
-          return [...ack, item];
-        }
-      }, [] as CartProductType[])
-    );
+        })
+        .filter(Boolean) as CartProductType[];
+      localStorage.setItem("shoppingCart", JSON.stringify(updatedCartData));
+      return updatedCartData;
+    });
   };
 
-  const clearFromCart = (id: number) => {
-    setCartProduct((prev) =>
-      prev.reduce((ack, item) => {
-        localStorage.removeItem("shoppingCart");
-        if (item.id === id) {
-          if (item.amount === 1) return ack;
-          return [...ack];
-        } else {
-          return [...ack, item];
-        }
-      }, [] as CartProductType[])
-    );
+  const handleClearFromCart = (id: number) => {
+    setCartProduct((prev) => {
+      const updatedCartData = prev.filter((cartItem) => cartItem.id !== id);
+      localStorage.setItem("shoppingCart", JSON.stringify(updatedCartData));
+      return updatedCartData;
+    });
   };
 
   return (
@@ -112,7 +93,7 @@ const Main = () => {
           cartProduct={cartProduct}
           handleAddToCart={handleAddToCart}
           handleRemoveFromCart={handleRemoveFromCart}
-          clearFromCart={clearFromCart}
+          handleClearFromCart={handleClearFromCart}
         />
       </Drawer>
 

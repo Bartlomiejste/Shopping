@@ -61,19 +61,19 @@ const Favourite = () => {
     );
   };
 
-  const clearFromCart = (id: number) => {
-    setCartProduct((prev) =>
-      prev.reduce((ack, item) => {
-        localStorage.removeItem("shoppingCart");
-        if (item.id === id) {
-          if (item.amount === 1) return ack;
-          return [...ack];
-        } else {
-          return [...ack, item];
-        }
-      }, [] as CartProductType[])
-    );
-  };
+  // const clearFromCart = (id: number) => {
+  //   setCartProduct((prev) =>
+  //     prev.reduce((ack, item) => {
+  //       localStorage.removeItem("shoppingCart");
+  //       if (item.id === id) {
+  //         if (item.amount === 1) return ack;
+  //         return [...ack];
+  //       } else {
+  //         return [...ack, item];
+  //       }
+  //     }, [] as CartProductType[])
+  //   );
+  // };
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "black" : "white",
@@ -89,7 +89,9 @@ const Favourite = () => {
       cursor: "pointer",
     },
   }));
-
+  const handleClearFromCart = () => {
+    setCartProduct([]);
+  };
   return (
     <>
       <ThemeProvider theme={BreakPointTheme}>
@@ -102,7 +104,7 @@ const Favourite = () => {
             cartProduct={cartProduct}
             handleAddToCart={handleAddToCart}
             handleRemoveFromCart={handleRemoveFromCart}
-            clearFromCart={clearFromCart}
+            handleClearFromCart={handleClearFromCart}
           />
         </Drawer>
 
