@@ -6,14 +6,12 @@ type Props = {
   cartProduct: CartProductType[];
   handleAddToCart: (clickedItem: CartProductType) => void;
   handleRemoveFromCart: (id: number) => void;
-  handleClearFromCart: (id: number) => void;
 };
 
 const Cart = ({
   cartProduct,
   handleAddToCart,
   handleRemoveFromCart,
-  handleClearFromCart,
 }: Props) => {
   const calculateTotal = (items: CartProductType[]) =>
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
@@ -30,7 +28,6 @@ const Cart = ({
           item={item}
           handleAddToCart={handleAddToCart}
           handleRemoveFromCart={handleRemoveFromCart}
-          handleClearFromCart={handleClearFromCart}
         />
       ))}
       <Box sx={{ mt: "40px" }}>

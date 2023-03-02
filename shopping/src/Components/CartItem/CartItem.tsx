@@ -8,20 +8,22 @@ import Paper from "@mui/material/Paper";
 import { CartProductType } from "../../pages/Main";
 import { Button, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useAppDispatch } from "../state/hooks";
+import { removeFromCart } from "../state/productClear";
+import { RootState } from "../state/store";
 
 type Props = {
   item: CartProductType;
   handleAddToCart: (clickedItem: CartProductType) => void;
   handleRemoveFromCart: (id: number) => void;
-  handleClearFromCart: (id: number) => void;
 };
 
-const CartItem = ({
-  item,
-  handleAddToCart,
-  handleRemoveFromCart,
-  handleClearFromCart,
-}: Props) => {
+const CartItem = ({ item, handleAddToCart, handleRemoveFromCart }: Props) => {
+  const selectCartItems = (state: RootState) => state.clear.cartItems;
+  const dispatch = useAppDispatch();
+  const handleClearFromCart = (id: number) => {
+    dispatch(removeFromCart(id));
+  };
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">

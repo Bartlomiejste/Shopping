@@ -6,7 +6,7 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  cartItems: [],
+  cartItems: JSON.parse(localStorage.getItem("shoppingCart") || "[]"),
 };
 
 const productClear = createSlice({

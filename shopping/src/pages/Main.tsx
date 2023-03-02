@@ -78,13 +78,13 @@ const Main = () => {
     });
   };
 
-  const handleClearFromCart = (id: number) => {
-    setCartProduct((prev) => {
-      const updatedCartData = prev.filter((cartItem) => cartItem.id !== id);
-      localStorage.setItem("shoppingCart", JSON.stringify(updatedCartData));
-      return updatedCartData;
-    });
-  };
+  // const handleClearFromCart = (id: number) => {
+  //   setCartProduct((prev) => {
+  //     const updatedCartData = prev.filter((cartItem) => cartItem.id !== id);
+  //     localStorage.setItem("shoppingCart", JSON.stringify(updatedCartData));
+  //     return updatedCartData;
+  //   });
+  // };
 
   return (
     <ThemeProvider theme={BreakPointTheme}>
@@ -93,7 +93,6 @@ const Main = () => {
           cartProduct={cartProduct}
           handleAddToCart={handleAddToCart}
           handleRemoveFromCart={handleRemoveFromCart}
-          handleClearFromCart={handleClearFromCart}
         />
       </Drawer>
 

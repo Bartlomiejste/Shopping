@@ -89,9 +89,7 @@ const Favourite = () => {
       cursor: "pointer",
     },
   }));
-  const handleClearFromCart = () => {
-    setCartProduct([]);
-  };
+
   return (
     <>
       <ThemeProvider theme={BreakPointTheme}>
@@ -104,7 +102,6 @@ const Favourite = () => {
             cartProduct={cartProduct}
             handleAddToCart={handleAddToCart}
             handleRemoveFromCart={handleRemoveFromCart}
-            handleClearFromCart={handleClearFromCart}
           />
         </Drawer>
 

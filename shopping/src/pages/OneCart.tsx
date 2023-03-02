@@ -125,9 +125,7 @@ const OneCart = () => {
   //     }, [] as CartProductType[])
   //   );
   // };
-  const handleClearFromCart = () => {
-    setCartProduct([]);
-  };
+
   return (
     <>
       <ThemeProvider theme={BreakPointTheme}>
@@ -140,7 +138,6 @@ const OneCart = () => {
             cartProduct={cartProducts}
             handleAddToCart={handleAddToCart}
             handleRemoveFromCart={handleRemoveFromCart}
-            handleClearFromCart={handleClearFromCart}
           />
         </Drawer>
 
