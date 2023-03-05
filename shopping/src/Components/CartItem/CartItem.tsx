@@ -8,8 +8,8 @@ import Paper from "@mui/material/Paper";
 import { CartProductType } from "../../pages/Main";
 import { Button, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useAppDispatch } from "../state/hooks";
-import { removeFromCart } from "../state/productClear";
+import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { removeFromCart } from "../state/productsCart";
 import { RootState } from "../state/store";
 
 type Props = {
@@ -19,11 +19,13 @@ type Props = {
 };
 
 const CartItem = ({ item, handleAddToCart, handleRemoveFromCart }: Props) => {
-  const selectCartItems = (state: RootState) => state.clear.cartItems;
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state: RootState) => state.cart.cartItems);
   const handleClearFromCart = (id: number) => {
     dispatch(removeFromCart(id));
   };
+  console.log(cartItems);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -35,6 +37,7 @@ const CartItem = ({ item, handleAddToCart, handleRemoveFromCart }: Props) => {
             <TableCell align="right">Total</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           <TableRow
             sx={{

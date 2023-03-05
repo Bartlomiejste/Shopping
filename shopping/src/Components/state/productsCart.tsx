@@ -9,8 +9,8 @@ const initialState: CartState = {
   cartItems: JSON.parse(localStorage.getItem("shoppingCart") || "[]"),
 };
 
-const productClear = createSlice({
-  name: "clear",
+export const cart = createSlice({
+  name: "cart",
   initialState,
   reducers: {
     removeFromCart: (state, action: PayloadAction<number>) => {
@@ -23,5 +23,5 @@ const productClear = createSlice({
   },
 });
 
-export const { removeFromCart } = productClear.actions;
-export default productClear.reducer;
+export const { removeFromCart } = cart.actions;
+export default cart.reducer;
