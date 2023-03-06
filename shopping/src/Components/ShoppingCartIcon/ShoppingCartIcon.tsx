@@ -3,14 +3,16 @@ import IconButton from "@mui/material/IconButton";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { CartProductType } from "../../pages/Main";
 import BottomNavigation from "@mui/material/BottomNavigation";
+import { useAppSelector } from "../../state/hooks";
+
+import { RootState } from "../../state/store";
 
 type Props = {
-  cartProducts: CartProductType[];
   setCartOpen: (clickedItem: boolean) => void;
 };
 
-const ShoppingCartIcon = ({ cartProducts, setCartOpen }: Props) => {
-  console.log("cart", cartProducts);
+const ShoppingCartIcon = ({ setCartOpen }: Props) => {
+  const cartItems = useAppSelector((state: RootState) => state.cart.cartItems);
   const getTotalItems = (items: CartProductType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);
   return (
@@ -20,7 +22,7 @@ const ShoppingCartIcon = ({ cartProducts, setCartOpen }: Props) => {
       }}
     >
       <IconButton onClick={() => setCartOpen(true)}>
-        <Badge badgeContent={getTotalItems(cartProducts)} color="error">
+        <Badge badgeContent={getTotalItems(cartItems)} color="error">
           <AddShoppingCartIcon sx={{ fontSize: 30 }} />
         </Badge>
       </IconButton>

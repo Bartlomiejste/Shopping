@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import productsReducer from "../state/productsSlice";
+import productsReducer from "./productsSlice";
 import cartReducer from "./productsCart";
 
 const store = configureStore({

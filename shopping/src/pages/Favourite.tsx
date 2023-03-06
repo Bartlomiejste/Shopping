@@ -13,7 +13,7 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 
 const Favourite = () => {
-  const [cartProduct, setCartProduct] = useState([] as CartProductType[]);
+  const [, setCartProduct] = useState([] as CartProductType[]);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
   const [favourites, setFavourites] = useState<CartProductType[]>([]);
 
@@ -48,18 +48,18 @@ const Favourite = () => {
     });
   };
 
-  const handleRemoveFromCart = (id: number) => {
-    setCartProduct((prev) =>
-      prev.reduce((ack, item) => {
-        if (item.id === id) {
-          if (item.amount === 1) return ack;
-          return [...ack, { ...item, amount: item.amount - 1 }];
-        } else {
-          return [...ack, item];
-        }
-      }, [] as CartProductType[])
-    );
-  };
+  // const handleRemoveFromCart = (id: number) => {
+  //   setCartProduct((prev) =>
+  //     prev.reduce((ack, item) => {
+  //       if (item.id === id) {
+  //         if (item.amount === 1) return ack;
+  //         return [...ack, { ...item, amount: item.amount - 1 }];
+  //       } else {
+  //         return [...ack, item];
+  //       }
+  //     }, [] as CartProductType[])
+  //   );
+  // };
 
   // const clearFromCart = (id: number) => {
   //   setCartProduct((prev) =>
@@ -99,16 +99,14 @@ const Favourite = () => {
           onClose={() => setCartOpen(false)}
         >
           <Cart
-            cartProduct={cartProduct}
-            handleAddToCart={handleAddToCart}
-            handleRemoveFromCart={handleRemoveFromCart}
+          // cartProduct={cartProduct}
           />
         </Drawer>
 
         <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
           <Navigation />
           <ShoppingCartIcon
-            cartProducts={cartProduct}
+            // cartProducts={cartProduct}
             setCartOpen={setCartOpen}
           />
           <ControlledSwitches />
@@ -120,7 +118,7 @@ const Favourite = () => {
             flexWrap: "wrap",
             paddingTop: "200px",
             justifyContent: "space-around",
-            backgroundImage: `url(${require("../../src/img/11.png")})`,
+            backgroundImage: `url(${require("../../src/assets/11.png")})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             height: "100vh",

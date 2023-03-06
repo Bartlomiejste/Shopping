@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { CartProductType } from "../../pages/Main";
 import { Box } from "@mui/material";
+import { useAppDispatch } from "../../state/hooks";
+import { addToCart } from "../../state/productsCart";
 
 type Props = {
   item: CartProductType;
-  handleAddToCart: (clickedItem: CartProductType) => void;
 };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -25,8 +26,14 @@ const Item = styled(Paper)(({ theme }) => ({
   },
 }));
 
-const Items = ({ item, handleAddToCart }: Props) => {
+const Items = ({ item }: Props) => {
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+  const handleAdd = (cartItems: CartProductType) => {
+    dispatch(addToCart(cartItems));
+  };
+
   return (
     <Item
       sx={{
@@ -46,7 +53,7 @@ const Items = ({ item, handleAddToCart }: Props) => {
       />
       <Box style={{ fontWeight: "bold", fontSize: "16px" }}>{item.title}</Box>
       <Box style={{ fontSize: "30px", color: "green" }}>${item.price}</Box>
-      <Button variant="outlined" onClick={() => handleAddToCart(item)}>
+      <Button variant="outlined" onClick={() => handleAdd(item)}>
         Add to cart
       </Button>
     </Item>

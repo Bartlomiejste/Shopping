@@ -8,88 +8,100 @@ import Paper from "@mui/material/Paper";
 import { CartProductType } from "../../pages/Main";
 import { Button, Typography } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { removeFromCart } from "../state/productsCart";
-import { RootState } from "../state/store";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
+import {
+  removeFromCart,
+  addToCart,
+  decreaseToCart,
+} from "../../state/productsCart";
+import { RootState } from "../../state/store";
 
-type Props = {
-  item: CartProductType;
-  handleAddToCart: (clickedItem: CartProductType) => void;
-  handleRemoveFromCart: (id: number) => void;
-};
-
-const CartItem = ({ item, handleAddToCart, handleRemoveFromCart }: Props) => {
+const CartItem = () => {
   const dispatch = useAppDispatch();
+
   const cartItems = useAppSelector((state: RootState) => state.cart.cartItems);
+
   const handleClearFromCart = (id: number) => {
     dispatch(removeFromCart(id));
+  };
+
+  const handleAdd = (cartItems: CartProductType) => {
+    dispatch(addToCart(cartItems));
+  };
+
+  const handleDecrease = (id: number) => {
+    dispatch(decreaseToCart(id));
   };
   console.log(cartItems);
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Item</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Quantity</TableCell>
-            <TableCell align="right">Total</TableCell>
-          </TableRow>
-        </TableHead>
+    <>
+      {cartItems.map((item, id) => (
+        <TableContainer component={Paper} key={id}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">Item</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Quantity</TableCell>
+                <TableCell align="right">Total</TableCell>
+              </TableRow>
+            </TableHead>
 
-        <TableBody>
-          <TableRow
-            sx={{
-              "&:last-child td, &:last-child th": { border: 0 },
-            }}
-          >
-            <TableCell>
-              <img src={item.image} alt={item.title} width="70" />
-            </TableCell>
-            <TableCell align="right">${item.price}</TableCell>
-            <TableCell>
-              <TableCell
-                align="right"
+            <TableBody>
+              <TableRow
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                  justifyContent: "flex-start",
+                  "&:last-child td, &:last-child th": { border: 0 },
                 }}
               >
-                <Button
-                  size="small"
-                  disableElevation
-                  variant="contained"
-                  onClick={() => handleAddToCart(item)}
-                >
-                  +
-                </Button>
-                <Typography sx={{ margin: "0px 10px" }}>
-                  {item.amount}
-                </Typography>
-                <Button
-                  size="small"
-                  disableElevation
-                  variant="contained"
-                  onClick={() => handleRemoveFromCart(item.id)}
-                >
-                  -
-                </Button>
-              </TableCell>
-            </TableCell>
-            <TableCell align="right">
-              <Button
-                startIcon={<ClearIcon />}
-                onClick={() => handleClearFromCart(item.id)}
-              />
-              ${(item.amount * item.price).toFixed(2)}
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+                <TableCell>
+                  <img src={item.image} alt={item.title} width="70" />
+                </TableCell>
+                <TableCell align="right">${item.price}</TableCell>
+                <TableCell>
+                  <TableCell
+                    align="right"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      height: "100%",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <Button
+                      size="small"
+                      disableElevation
+                      variant="contained"
+                      onClick={() => handleAdd(item)}
+                    >
+                      +
+                    </Button>
+                    <Typography sx={{ margin: "0px 10px" }}>
+                      {item.amount}
+                    </Typography>
+                    <Button
+                      size="small"
+                      disableElevation
+                      variant="contained"
+                      onClick={() => handleDecrease(item.id)}
+                    >
+                      -
+                    </Button>
+                  </TableCell>
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    startIcon={<ClearIcon />}
+                    onClick={() => handleClearFromCart(item.id)}
+                  />
+                  ${(item.amount * item.price).toFixed(2)}
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ))}
+    </>
   );
 };
 

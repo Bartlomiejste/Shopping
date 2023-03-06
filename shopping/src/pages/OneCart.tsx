@@ -14,7 +14,7 @@ import { CartProductType } from "./Main";
 const OneCart = () => {
   const [product, setProduct] = useState<CartProductType>();
   const { id } = useParams<string>();
-  const [cartProducts, setCartProduct] = useState([] as CartProductType[]);
+  const [, setCartProduct] = useState([] as CartProductType[]);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
 
   const [favourites, setFavourites] = useState<CartProductType[]>([]);
@@ -99,18 +99,18 @@ const OneCart = () => {
     });
   };
 
-  const handleRemoveFromCart = (id: number) => {
-    setCartProduct((prev) =>
-      prev.reduce((ack, item) => {
-        if (item.id === id) {
-          if (item.amount === 1) return ack;
-          return [...ack, { ...item, amount: item.amount - 1 }];
-        } else {
-          return [...ack, item];
-        }
-      }, [] as CartProductType[])
-    );
-  };
+  // const handleRemoveFromCart = (id: number) => {
+  //   setCartProduct((prev) =>
+  //     prev.reduce((ack, item) => {
+  //       if (item.id === id) {
+  //         if (item.amount === 1) return ack;
+  //         return [...ack, { ...item, amount: item.amount - 1 }];
+  //       } else {
+  //         return [...ack, item];
+  //       }
+  //     }, [] as CartProductType[])
+  //   );
+  // };
 
   // const clearFromCart = (id: number) => {
   //   setCartProduct((prev) =>
@@ -134,19 +134,12 @@ const OneCart = () => {
           open={cartOpen}
           onClose={() => setCartOpen(false)}
         >
-          <Cart
-            cartProduct={cartProducts}
-            handleAddToCart={handleAddToCart}
-            handleRemoveFromCart={handleRemoveFromCart}
-          />
+          <Cart />
         </Drawer>
 
         <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
           <Navigation />
-          <ShoppingCartIcon
-            cartProducts={cartProducts}
-            setCartOpen={setCartOpen}
-          />
+          <ShoppingCartIcon setCartOpen={setCartOpen} />
           <ControlledSwitches />
         </Box>
 
@@ -156,7 +149,7 @@ const OneCart = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              backgroundImage: `url(${require("../img/5.png")})`,
+              backgroundImage: `url(${require("../assets/5.png")})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               width: "100%",
