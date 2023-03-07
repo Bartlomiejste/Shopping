@@ -14,14 +14,12 @@ export default function ControlledSwitches() {
     dispatch(toggleTheme());
   };
   return (
-    <>
-      <Switch
-        sx={{ marginLeft: 8 }}
-        value={darkMode}
-        checked={checked}
-        onChange={handleChange}
-        inputProps={{ "aria-label": "controlled" }}
-      />
-    </>
+    <Switch
+      sx={{ marginLeft: 5 }}
+      value={darkMode}
+      checked={checked}
+      onChange={handleChange}
+      inputProps={{ "aria-label": "controlled" }}
+    />
   );
 }

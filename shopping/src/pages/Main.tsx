@@ -26,6 +26,7 @@ const Main = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const products = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
@@ -36,6 +37,15 @@ const Main = () => {
         <Cart />
       </Drawer>
       <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
+        <Box
+          sx={{
+            fontFamily: "Dancing Script, sans-serif, cursive",
+            fontSize: 25,
+            marginRight: 180,
+          }}
+        >
+          My Shop
+        </Box>
         <Navigation />
         <ShoppingCartIcon setCartOpen={setCartOpen} />
         <ControlledSwitches />

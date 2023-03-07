@@ -10,11 +10,12 @@ import { Drawer } from "@mui/material";
 import Cart from "../Components/Cart/Cart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { CartProductType } from "./Main";
+import { addToCart } from "../state/productsCart";
+import { useAppDispatch } from "../state/hooks";
 
 const OneCart = () => {
   const [product, setProduct] = useState<CartProductType>();
   const { id } = useParams<string>();
-  const [, setCartProduct] = useState([] as CartProductType[]);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
 
   const [favourites, setFavourites] = useState<CartProductType[]>([]);
@@ -22,7 +23,6 @@ const OneCart = () => {
 
   useEffect(() => {
     const prevItems = localStorage.getItem("clickedItem");
-    console.log(prevItems);
     const favProducts = prevItems ? JSON.parse(prevItems) : [];
     const productIdFromFav: number[] = favProducts.map((el: any) => el.id);
     if (productIdFromFav.includes(Number(id))) {
@@ -30,13 +30,10 @@ const OneCart = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const allProducts = localStorage.getItem("shoppingCart");
-    if (allProducts) {
-      const parsedProduct = JSON.parse(allProducts);
-      setCartProduct(parsedProduct);
-    }
-  }, []);
+  const dispatch = useAppDispatch();
+  const handleAdd = (cartItems: CartProductType) => {
+    dispatch(addToCart(cartItems));
+  };
 
   useEffect(() => {
     getProduct();
@@ -53,7 +50,6 @@ const OneCart = () => {
     } else {
       setFavourites([...favourites.filter((item) => item !== clickedItem)]);
     }
-    console.log("add to fav", newValue);
     return;
   };
 
@@ -78,54 +74,6 @@ const OneCart = () => {
     return data;
   };
 
-  const handleAddToCart = (clickedItem: CartProductType) => {
-    setCartProduct((prev) => {
-      const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-      if (isItemInCart) {
-        const allProducts = prev.map((item) =>
-          item.id === clickedItem.id
-            ? { ...item, amount: item.amount + 1 }
-            : item
-        );
-        localStorage.setItem("shoppingCart", JSON.stringify([...prev]));
-        return allProducts;
-      } else {
-        localStorage.setItem(
-          "shoppingCart",
-          JSON.stringify([...prev, { ...clickedItem, amount: 1 }])
-        );
-        return [...prev, { ...clickedItem, amount: 1 }];
-      }
-    });
-  };
-
-  // const handleRemoveFromCart = (id: number) => {
-  //   setCartProduct((prev) =>
-  //     prev.reduce((ack, item) => {
-  //       if (item.id === id) {
-  //         if (item.amount === 1) return ack;
-  //         return [...ack, { ...item, amount: item.amount - 1 }];
-  //       } else {
-  //         return [...ack, item];
-  //       }
-  //     }, [] as CartProductType[])
-  //   );
-  // };
-
-  // const clearFromCart = (id: number) => {
-  //   setCartProduct((prev) =>
-  //     prev.reduce((ack, item) => {
-  //       localStorage.removeItem("shoppingCart");
-  //       if (item.id === id) {
-  //         if (item.amount === 1) return ack;
-  //         return [...ack];
-  //       } else {
-  //         return [...ack, item];
-  //       }
-  //     }, [] as CartProductType[])
-  //   );
-  // };
-
   return (
     <>
       <ThemeProvider theme={BreakPointTheme}>
@@ -138,6 +86,15 @@ const OneCart = () => {
         </Drawer>
 
         <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
+          <Box
+            sx={{
+              fontFamily: "Dancing Script, sans-serif, cursive",
+              fontSize: 25,
+              marginRight: 180,
+            }}
+          >
+            My Shop
+          </Box>
           <Navigation />
           <ShoppingCartIcon setCartOpen={setCartOpen} />
           <ControlledSwitches />
@@ -199,10 +156,7 @@ const OneCart = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleAddToCart(product)}
-                  >
+                  <Button variant="outlined" onClick={() => handleAdd(product)}>
                     Add to cart
                   </Button>
                   <Button

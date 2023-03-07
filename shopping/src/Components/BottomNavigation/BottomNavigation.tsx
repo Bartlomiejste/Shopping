@@ -9,7 +9,7 @@ export default function SimpleBottomNavigation() {
         background: "transparent",
       }}
     >
-      <BottomNavigationAction icon={<StoreIcon sx={{ fontSize: 30 }} />} />
+      <BottomNavigationAction icon={<StoreIcon sx={{ fontSize: 25 }} />} />
     </BottomNavigation>
   );
 }

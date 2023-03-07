@@ -23,7 +23,7 @@ const ShoppingCartIcon = ({ setCartOpen }: Props) => {
     >
       <IconButton onClick={() => setCartOpen(true)}>
         <Badge badgeContent={getTotalItems(cartItems)} color="error">
-          <AddShoppingCartIcon sx={{ fontSize: 30 }} />
+          <AddShoppingCartIcon sx={{ fontSize: 25 }} />
         </Badge>
       </IconButton>
     </BottomNavigation>
