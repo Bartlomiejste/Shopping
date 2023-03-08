@@ -10,6 +10,7 @@ import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
 import { fetchProducts } from "../state/productsSlice";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import CircularProgressWithLabel from "../Components/CircularProgressWithLabel/CircularProgressWithLabel";
+import SearchField from "../Components/SearchField/SearchField";
 
 export type CartProductType = {
   id: number;
@@ -41,14 +42,25 @@ const Main = () => {
           sx={{
             fontFamily: "Dancing Script, sans-serif, cursive",
             fontSize: 25,
-            marginRight: 180,
           }}
         >
           My Shop
         </Box>
-        <Navigation />
-        <ShoppingCartIcon setCartOpen={setCartOpen} />
-        <ControlledSwitches />
+        <Box>
+          <SearchField />
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Navigation />
+          <ShoppingCartIcon setCartOpen={setCartOpen} />
+          <ControlledSwitches />
+        </Box>
       </Box>
       <Box>
         {products.loading && <CircularProgressWithLabel />}

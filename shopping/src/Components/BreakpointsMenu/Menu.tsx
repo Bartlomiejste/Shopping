@@ -30,8 +30,6 @@ export { BreakPointTheme };
 const BoxStyle = (BreakPointTheme: Theme) => ({
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
-  textAlign: "center",
   height: "100px",
   top: 0,
   left: 0,
@@ -42,15 +40,9 @@ const BoxStyle = (BreakPointTheme: Theme) => ({
 
   [BreakPointTheme.breakpoints.down("xs")]: {},
   [BreakPointTheme.breakpoints.up("sm")]: {},
-  [BreakPointTheme.breakpoints.up("md")]: {
-    justifyContent: "flex-end",
-  },
-  [BreakPointTheme.breakpoints.up("bg")]: {
-    justifyContent: "flex-end",
-  },
-  [BreakPointTheme.breakpoints.up("lg")]: {
-    justifyContent: "flex-end",
-  },
+  [BreakPointTheme.breakpoints.up("md")]: {},
+  [BreakPointTheme.breakpoints.up("bg")]: {},
+  [BreakPointTheme.breakpoints.up("lg")]: {},
 });
 export { BoxStyle };
 
