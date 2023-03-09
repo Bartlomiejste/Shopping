@@ -30,13 +30,15 @@ export { BreakPointTheme };
 const BoxStyle = (BreakPointTheme: Theme) => ({
   display: "flex",
   alignItems: "center",
+
   height: "100px",
   top: 0,
-  left: 0,
+  margin: "0 auto",
+
   position: "fixed",
-  width: "100%",
+  width: "90%",
   zIndex: 100,
-  backgroundColor: "#DBDCDE",
+  backgroundColor: "#ffff",
 
   [BreakPointTheme.breakpoints.down("xs")]: {},
   [BreakPointTheme.breakpoints.up("sm")]: {},
