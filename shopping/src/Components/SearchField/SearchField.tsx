@@ -19,7 +19,12 @@ export default function CustomizedInputBase() {
       }}
     >
       <InputBase
-        sx={{ ml: 1, flex: 1, fontSize: "13px" }}
+        sx={{
+          ml: 1,
+          flex: 1,
+          fontSize: "13px",
+          fontFamily: "Playfair Display, Arial, sans-serif",
+        }}
         placeholder="Search products"
         inputProps={{ "aria-label": "Search products" }}
       />

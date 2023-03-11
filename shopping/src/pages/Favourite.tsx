@@ -14,6 +14,7 @@ import Paper from "@mui/material/Paper";
 import { addToCart } from "../state/productsCart";
 import { useAppDispatch } from "../state/hooks";
 import { useNavigate } from "react-router-dom";
+import SearchField from "../Components/SearchField/SearchField";
 
 const Favourite = () => {
   const [cartOpen, setCartOpen] = useState<boolean>(false);
@@ -58,69 +59,81 @@ const Favourite = () => {
           <Cart />
         </Drawer>
 
-        <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
-          <Box
-            sx={{
-              fontFamily: "Dancing Script, sans-serif, cursive",
-              fontSize: 25,
-              marginRight: 180,
-            }}
-          >
-            My Shop
-          </Box>
-          <Navigation />
-          <ShoppingCartIcon setCartOpen={setCartOpen} />
-          <ControlledSwitches />
-        </Box>
-
         <Box
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            paddingTop: "200px",
-            justifyContent: "space-around",
-            backgroundImage: `url(${require("../../src/assets/11.png")})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            height: "100vh",
+            width: "90%",
+            margin: "0 auto",
           }}
         >
-          {favourites.length ? (
-            favourites?.map((product) => (
-              <Item
-                key={product.id}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  style={{ width: "180px", height: "220px" }}
-                  onClick={() => {
-                    navigate(`/${product.id}`);
-                  }}
-                />
-                <Box style={{ fontWeight: "bold", fontSize: "16px" }}>
-                  {product.title}
-                </Box>
-                <Box style={{ fontSize: "30px", color: "green" }}>
-                  ${product.price}
-                </Box>
-                <Button variant="outlined" onClick={() => handleAdd(product)}>
-                  Add to cart
-                </Button>
-              </Item>
-            ))
-          ) : (
-            <Typography sx={{ marginTop: "200px" }}>
-              You don't have a favourite product
-            </Typography>
-          )}
+          <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
+            <Box
+              sx={{
+                fontFamily: "Playfair Display, Arial, sans-serif",
+                fontSize: 25,
+                width: "20%",
+                padding: "20px",
+                color: "#073D29",
+              }}
+            >
+              My Shop
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              }}
+            >
+              <SearchField />
+              <Navigation />
+              <ShoppingCartIcon setCartOpen={setCartOpen} />
+              <ControlledSwitches />
+            </Box>
+          </Box>
         </Box>
+
+        {favourites.length ? (
+          favourites?.map((product) => (
+            <Item
+              key={product.id}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={product.image}
+                alt={product.title}
+                style={{ width: "180px", height: "220px" }}
+                onClick={() => {
+                  navigate(`/${product.id}`);
+                }}
+              />
+              <Box style={{ fontWeight: "bold", fontSize: "16px" }}>
+                {product.title}
+              </Box>
+              <Box style={{ fontSize: "30px", color: "green" }}>
+                ${product.price}
+              </Box>
+              <Button variant="outlined" onClick={() => handleAdd(product)}>
+                Add to cart
+              </Button>
+            </Item>
+          ))
+        ) : (
+          <Typography
+            sx={{
+              marginTop: "200px",
+              width: "100%",
+              textAlign: "center",
+            }}
+          >
+            You don't have a favourite product
+          </Typography>
+        )}
       </ThemeProvider>
     </>
   );

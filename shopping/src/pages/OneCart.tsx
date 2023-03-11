@@ -12,7 +12,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { CartProductType } from "./Main";
 import { addToCart } from "../state/productsCart";
 import { useAppDispatch } from "../state/hooks";
-
+import SearchField from "../Components/SearchField/SearchField";
 const OneCart = () => {
   const [product, setProduct] = useState<CartProductType>();
   const { id } = useParams<string>();
@@ -85,19 +85,38 @@ const OneCart = () => {
           <Cart />
         </Drawer>
 
-        <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
-          <Box
-            sx={{
-              fontFamily: "Dancing Script, sans-serif, cursive",
-              fontSize: 25,
-              marginRight: 180,
-            }}
-          >
-            My Shop
+        <Box
+          sx={{
+            width: "90%",
+            margin: "0 auto",
+          }}
+        >
+          <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
+            <Box
+              sx={{
+                fontFamily: "Playfair Display, Arial, sans-serif",
+                fontSize: 25,
+                width: "20%",
+                padding: "20px",
+                color: "#073D29",
+              }}
+            >
+              My Shop
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              }}
+            >
+              <SearchField />
+              <Navigation />
+              <ShoppingCartIcon setCartOpen={setCartOpen} />
+              <ControlledSwitches />
+            </Box>
           </Box>
-          <Navigation />
-          <ShoppingCartIcon setCartOpen={setCartOpen} />
-          <ControlledSwitches />
         </Box>
 
         {product && (

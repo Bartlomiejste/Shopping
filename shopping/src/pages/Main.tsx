@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Drawer, Typography } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import Items from "../Components/Item/Items";
 import Cart from "../Components/Cart/Cart";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
@@ -46,39 +46,16 @@ const Main = () => {
         <Box
           sx={{
             width: "100%",
-            height: "200px",
-            background: "#FCF0E4",
-            marginTop: "100px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-evenly",
+            height: "500px",
+            marginTop: "150px",
+            backgroundImage: `url(${require("../../src/assets/sales8.png")})`,
+            backgroundRepeat: "no-repeat",
           }}
-        >
-          <Typography
-            sx={{
-              color: "#073D29",
-              fontWeight: "bold",
-              fontSize: "25px",
-              width: "30%",
-            }}
-          >
-            GRAB Upto 50% Off On Selected Products
-          </Typography>
-          <Box
-            style={{
-              height: "100%",
-              width: "30%",
-              backgroundImage: `url(${require("../../src/assets/sales7.png")})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "contain",
-            }}
-          />
-        </Box>
+        ></Box>
         <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
           <Box
             sx={{
-              fontFamily:
-                "Haas Grot Text R Web, Helvetica Neue, Helvetica, Arial, sans-serif",
+              fontFamily: "Playfair Display, Arial, sans-serif",
               fontSize: 25,
               width: "20%",
               padding: "20px",
@@ -111,12 +88,10 @@ const Main = () => {
             <Box
               sx={{
                 display: "flex",
+                marginTop: "50px",
                 flexWrap: "wrap",
-                paddingTop: "200px",
                 justifyContent: "space-around",
-                backgroundImage: `url(${require("../../src/assets/11.png")})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
+                background: "lightgrey",
               }}
             >
               {products.products.map((products) => (
