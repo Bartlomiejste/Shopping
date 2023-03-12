@@ -31,7 +31,7 @@ const Items = ({ item }: Props) => {
   return (
     <Item
       sx={{
-        height: "400px",
+        height: "350px",
         width: "300px",
         display: "flex",
         flexDirection: "column",
@@ -43,7 +43,7 @@ const Items = ({ item }: Props) => {
       <img
         src={item.image}
         alt={item.title}
-        style={{ width: "200px", height: "220px" }}
+        style={{ width: "120px", height: "150px" }}
         onClick={() => {
           navigate(`/${item.id}`);
         }}
@@ -68,9 +68,6 @@ const Items = ({ item }: Props) => {
           <Box component="span">(221)</Box>
         </Box>
         <Button
-          sx={{
-            borderRadius: 20,
-          }}
           color="primary"
           disabled={false}
           size="small"

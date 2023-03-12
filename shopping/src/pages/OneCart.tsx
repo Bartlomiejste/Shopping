@@ -12,7 +12,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { CartProductType } from "./Main";
 import { addToCart } from "../state/productsCart";
 import { useAppDispatch } from "../state/hooks";
-import SearchField from "../Components/SearchField/SearchField";
+import Rating from "@mui/material/Rating";
+
 const OneCart = () => {
   const [product, setProduct] = useState<CartProductType>();
   const { id } = useParams<string>();
@@ -91,6 +92,15 @@ const OneCart = () => {
             margin: "0 auto",
           }}
         >
+          <Box
+            sx={{
+              width: "100%",
+              height: "500px",
+              marginTop: "150px",
+              backgroundImage: `url(${require("../../src/assets/sales8.png")})`,
+              backgroundRepeat: "no-repeat",
+            }}
+          />
           <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
             <Box
               sx={{
@@ -111,7 +121,6 @@ const OneCart = () => {
                 justifyContent: "flex-end",
               }}
             >
-              <SearchField />
               <Navigation />
               <ShoppingCartIcon setCartOpen={setCartOpen} />
               <ControlledSwitches />
@@ -124,10 +133,12 @@ const OneCart = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "flex-end",
-              backgroundImage: `url(${require("../assets/5.png")})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
+              justifyContent: "center",
+
+              marginTop: "50px",
+              flexWrap: "wrap",
+
+              background: "lightgrey",
               width: "100%",
               height: "100vh",
               padding: "0 40px",
@@ -151,6 +162,7 @@ const OneCart = () => {
                   style={{ width: "50%", height: "50%" }}
                 />
               </Box>
+
               <Box
                 sx={{
                   display: "flex",
@@ -164,8 +176,13 @@ const OneCart = () => {
                 <Box style={{ fontWeight: "bold", fontSize: "16px" }}>
                   {product.title}
                 </Box>
+
                 <Box style={{ fontSize: "25px", color: "green" }}>
                   ${product.price}
+                </Box>
+                <Box sx={{ display: "flex" }}>
+                  <Rating name="read-only" value={5} readOnly size="small" />
+                  <Box component="span">(221)</Box>
                 </Box>
                 <Box style={{ fontSize: "14px" }}>{product.description}</Box>
                 <Box

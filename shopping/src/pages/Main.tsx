@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Box, Drawer } from "@mui/material";
-import Items from "../Components/Item/Items";
 import Cart from "../Components/Cart/Cart";
 import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
 import { ThemeProvider } from "@mui/material/styles";
@@ -10,7 +9,7 @@ import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
 import { fetchProducts } from "../state/productsSlice";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import CircularProgressWithLabel from "../Components/CircularProgressWithLabel/CircularProgressWithLabel";
-import SearchField from "../Components/SearchField/SearchField";
+import Sorting from "../Components/Sorting/Sorting";
 
 export type CartProductType = {
   id: number;
@@ -51,7 +50,7 @@ const Main = () => {
             backgroundImage: `url(${require("../../src/assets/sales8.png")})`,
             backgroundRepeat: "no-repeat",
           }}
-        ></Box>
+        />
         <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
           <Box
             sx={{
@@ -72,7 +71,6 @@ const Main = () => {
               justifyContent: "flex-end",
             }}
           >
-            <SearchField />
             <Navigation />
             <ShoppingCartIcon setCartOpen={setCartOpen} />
             <ControlledSwitches />
@@ -94,9 +92,7 @@ const Main = () => {
                 background: "lightgrey",
               }}
             >
-              {products.products.map((products) => (
-                <Items key={products.id} item={products} />
-              ))}
+              <Sorting products={products.products} />
             </Box>
           ) : null}
         </Box>
