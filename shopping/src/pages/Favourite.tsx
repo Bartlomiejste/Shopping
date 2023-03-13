@@ -8,18 +8,13 @@ import { ThemeProvider } from "@mui/material";
 import { Drawer } from "@mui/material";
 import Cart from "../Components/Cart/Cart";
 import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
-import { experimentalStyled as styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-import { addToCart } from "../state/productsCart";
-import { useAppDispatch } from "../state/hooks";
-import { useNavigate } from "react-router-dom";
-import Rating from "@mui/material/Rating";
+
+import Items from "../Components/Item/Items";
 
 const Favourite = () => {
   const [cartOpen, setCartOpen] = useState<boolean>(false);
   const [favourites, setFavourites] = useState<CartProductType[]>([]);
-  const navigate = useNavigate();
+
   useEffect(() => {
     const favouriteProducts = localStorage.getItem("clickedItem");
     if (favouriteProducts) {
@@ -27,26 +22,6 @@ const Favourite = () => {
       setFavourites(parsedProduct);
     }
   }, []);
-
-  const dispatch = useAppDispatch();
-  const handleAdd = (cartItems: CartProductType) => {
-    dispatch(addToCart(cartItems));
-  };
-
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "black" : "white",
-    ...theme.typography.body2,
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    height: "450px",
-    width: "300px",
-    margin: "20px",
-    "img:hover": {
-      transform: "scale(1.1)",
-      cursor: "pointer",
-    },
-  }));
 
   return (
     <>
@@ -58,7 +33,6 @@ const Favourite = () => {
         >
           <Cart />
         </Drawer>
-
         <Box
           sx={{
             width: "90%",
@@ -99,84 +73,61 @@ const Favourite = () => {
               <ControlledSwitches />
             </Box>
           </Box>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            marginTop: "50px",
-            flexWrap: "wrap",
-            justifyContent: "space-around",
-            background: "lightgrey",
-          }}
-        >
-          {favourites.length ? (
-            favourites?.map((product) => (
-              <Item
-                sx={{
-                  height: "350px",
-                  width: "300px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  padding: "20px",
-                }}
-              >
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  style={{ width: "120px", height: "150px" }}
-                  onClick={() => {
-                    navigate(`/${product.id}`);
-                  }}
-                />
 
-                <Box
-                  sx={{
-                    marginTop: "10px",
-                    width: "100%",
-                    height: "180px",
-                    display: "flex",
-                    flexDirection: "column",
-                    textAlign: "left",
-                    alignItems: "flex-start",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Typography sx={{ fontSize: 12 }}>{product.title}</Typography>
-                  <Typography style={{ color: "green" }}>
-                    ${product.price}
-                  </Typography>
-                  <Box sx={{ display: "flex" }}>
-                    <Rating name="read-only" value={5} readOnly size="small" />
-                    <Box component="span">(221)</Box>
-                  </Box>
-                  <Button
-                    sx={{
-                      borderRadius: 20,
-                    }}
-                    color="primary"
-                    disabled={false}
-                    size="small"
-                    variant="outlined"
-                    onClick={() => handleAdd(product)}
-                  >
-                    Add to cart
-                  </Button>
-                </Box>
-              </Item>
-            ))
-          ) : (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              marginTop: "50px",
+              flexWrap: "wrap",
+              background: "lightgrey",
+              width: "100%",
+            }}
+          >
             <Typography
               sx={{
-                marginTop: "200px",
+                fontSize: "25px",
+                marginTop: "20px",
                 width: "100%",
-                textAlign: "center",
+                padding: "0 0 0 100px",
+                background: "#B8BEC5",
+                height: "100px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              You don't have a favourite product
+              Your favourite products:
             </Typography>
-          )}
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                marginTop: "50px",
+                flexWrap: "wrap",
+                justifyContent: "space-around",
+                background: "lightgrey",
+              }}
+            >
+              {favourites.length ? (
+                favourites?.map((product) => (
+                  <Items key={product.id} item={product} />
+                ))
+              ) : (
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: "200px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Typography>You don't have a favourite product</Typography>
+                </Box>
+              )}
+            </Box>
+          </Box>
         </Box>
       </ThemeProvider>
     </>
