@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { configureStore } from "@reduxjs/toolkit";
-// import { CartProductType } from "../../pages/Main";
 
 export const theme = createSlice({
   name: "theme",
@@ -15,6 +13,4 @@ export const theme = createSlice({
 });
 
 export const { toggleTheme } = theme.actions;
-export const store = configureStore({
-  reducer: theme.reducer,
-});
+export default theme.reducer;
