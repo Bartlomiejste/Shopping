@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { Box } from "@mui/material";
-
 import { ThemeProvider } from "@mui/material/styles";
-import { BreakPointTheme } from "../Components/BreakpointsMenu/Menu";
-
+import { BreakPointTheme } from "../Components/BreakpointsMenu/BreakpointsMenu";
 import { fetchProducts } from "../state/productsSlice";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import CircularProgressWithLabel from "../Components/CircularProgressWithLabel/CircularProgressWithLabel";

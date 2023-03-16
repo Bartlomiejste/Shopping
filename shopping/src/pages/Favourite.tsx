@@ -1,19 +1,15 @@
-import { Navigation } from "../Components/Navigation/Navigation";
 import { Box, Typography } from "@mui/material";
-import { BoxStyle, BreakPointTheme } from "../Components/BreakpointsMenu/Menu";
-import ControlledSwitches from "../Components/ControlledSwitches/ControlledSwitches";
-import ShoppingCartIcon from "../Components/ShoppingCartIcon/ShoppingCartIcon";
+import { BreakPointTheme } from "../Components/BreakpointsMenu/BreakpointsMenu";
 import { CartProductType } from "./Main";
 import { ThemeProvider } from "@mui/material";
-import { Drawer } from "@mui/material";
-import Cart from "../Components/Cart/Cart";
 import { useEffect, useState } from "react";
-
 import Items from "../Components/Item/Items";
+import Menu from "../Components/Menu/Menu";
+import { useAppSelector } from "../state/hooks";
 
 const Favourite = () => {
-  const [cartOpen, setCartOpen] = useState<boolean>(false);
   const [favourites, setFavourites] = useState<CartProductType[]>([]);
+  const darkMode = useAppSelector((state) => state.theme.darkMode);
 
   useEffect(() => {
     const favouriteProducts = localStorage.getItem("clickedItem");
@@ -26,53 +22,13 @@ const Favourite = () => {
   return (
     <>
       <ThemeProvider theme={BreakPointTheme}>
-        <Drawer
-          anchor="right"
-          open={cartOpen}
-          onClose={() => setCartOpen(false)}
-        >
-          <Cart />
-        </Drawer>
         <Box
           sx={{
             width: "90%",
             margin: "0 auto",
           }}
         >
-          <Box
-            sx={{
-              width: "100%",
-              height: "500px",
-              marginTop: "150px",
-              backgroundImage: `url(${require("../../src/assets/sales8.png")})`,
-              backgroundRepeat: "no-repeat",
-            }}
-          />
-          <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
-            <Box
-              sx={{
-                fontFamily: "Playfair Display, Arial, sans-serif",
-                fontSize: 25,
-                width: "20%",
-                padding: "20px",
-                color: "#073D29",
-              }}
-            >
-              My Shop
-            </Box>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Navigation />
-              <ShoppingCartIcon setCartOpen={setCartOpen} />
-              <ControlledSwitches />
-            </Box>
-          </Box>
+          <Menu />
 
           <Box
             sx={{
@@ -81,7 +37,7 @@ const Favourite = () => {
               justifyContent: "space-around",
               marginTop: "50px",
               flexWrap: "wrap",
-              background: "lightgrey",
+              backgroundColor: "lightgrey",
               width: "100%",
             }}
           >
@@ -91,7 +47,7 @@ const Favourite = () => {
                 marginTop: "20px",
                 width: "100%",
                 padding: "0 0 0 100px",
-                background: "#B8BEC5",
+                backgroundColor: darkMode ? "gray" : "#B8BEC5",
                 height: "100px",
                 display: "flex",
                 alignItems: "center",

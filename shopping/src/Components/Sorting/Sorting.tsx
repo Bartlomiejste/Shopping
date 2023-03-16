@@ -9,6 +9,7 @@ import { CartProductType } from "../../pages/Main";
 import Items from "../Item/Items";
 import { Box } from "@mui/material";
 import SearchField from "../../Components/SearchField/SearchField";
+import { useAppSelector } from "../../state/hooks";
 
 type SortOption = "lowToHigh" | "highToLow" | "fromAtoZ" | "fromZtoA";
 
@@ -54,7 +55,9 @@ const Sorting = ({ products }: Props) => {
     <>
       <Box
         sx={{
-          background: "#B8BEC5",
+          backgroundColor: useAppSelector((state) =>
+            state.theme.darkMode ? "gray" : "#B8BEC5"
+          ),
           marginTop: "20px",
           width: "100%",
           height: "100px",

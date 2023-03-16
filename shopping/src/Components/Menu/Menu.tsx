@@ -1,7 +1,7 @@
-import { Box, Drawer } from "@mui/material";
+import { Box, Drawer, Typography } from "@mui/material";
 import Cart from "../Cart/Cart";
 import ControlledSwitches from "../ControlledSwitches/ControlledSwitches";
-import { BoxStyle, BreakPointTheme } from "../BreakpointsMenu/Menu";
+import { BoxStyle, BreakPointTheme } from "../BreakpointsMenu/BreakpointsMenu";
 import { Navigation } from "../Navigation/Navigation";
 import ShoppingCartIcon from "../ShoppingCartIcon/ShoppingCartIcon";
 import { useState } from "react";
@@ -20,10 +20,11 @@ const Menu = () => {
           marginTop: "150px",
           backgroundImage: `url(${require("../../assets/sales8.png")})`,
           backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
         }}
       />
       <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
-        <Box
+        <Typography
           sx={{
             fontFamily: "Playfair Display, Arial, sans-serif",
             fontSize: 25,
@@ -33,7 +34,7 @@ const Menu = () => {
           }}
         >
           My Shop
-        </Box>
+        </Typography>
         <Box
           sx={{
             width: "100%",

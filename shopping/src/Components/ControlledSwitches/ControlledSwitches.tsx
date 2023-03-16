@@ -2,6 +2,7 @@ import * as React from "react";
 import Switch from "@mui/material/Switch";
 import { toggleTheme } from "../../state/darkMode";
 import { useAppDispatch, useAppSelector } from "../../state/hooks";
+
 export default function ControlledSwitches() {
   const darkMode = useAppSelector((state: any) => state.darkMode);
   const dispatch = useAppDispatch();
