@@ -22,9 +22,12 @@ export default function SearchField(props: SearchFieldProps) {
         p: "2px 4px",
         display: "flex",
         alignItems: "center",
-        width: 250,
+        width: "250px",
         height: 30,
         background: "#F5F7F9",
+        "@media only screen and (min-width: 320px) and (max-width: 425px)": {
+          width: "105px",
+        },
       }}
     >
       <InputBase
@@ -38,7 +41,13 @@ export default function SearchField(props: SearchFieldProps) {
         inputProps={{ "aria-label": "Search products" }}
         onChange={handleSearch}
       />
-      <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+      <IconButton
+        type="button"
+        sx={{
+          p: "10px",
+        }}
+        aria-label="search"
+      >
         <SearchIcon />
       </IconButton>
     </Paper>

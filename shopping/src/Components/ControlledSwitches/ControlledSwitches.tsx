@@ -14,7 +14,7 @@ export default function ControlledSwitches() {
   };
   return (
     <Switch
-      sx={{ marginLeft: 5 }}
+      sx={{ marginLeft: 3 }}
       value={darkMode}
       checked={checked}
       onChange={handleChange}

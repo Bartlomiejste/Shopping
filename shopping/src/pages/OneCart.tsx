@@ -104,13 +104,25 @@ const OneCart = () => {
                 width: "50%",
                 background: "#fff",
                 padding: "50px",
+                "@media only screen and (min-width: 320px) and (max-width: 424px)":
+                  {
+                    width: "400px",
+                  },
               }}
             >
               <Box>
-                <img
+                <Box
+                  component="img"
                   src={product.image}
                   alt={product.title}
-                  style={{ width: "50%", height: "50%" }}
+                  sx={{
+                    width: "50%",
+                    height: "50%",
+                    "@media only screen and (min-width: 320px) and (max-width: 424px)":
+                      {
+                        display: "none",
+                      },
+                  }}
                 />
               </Box>
 
@@ -124,18 +136,55 @@ const OneCart = () => {
                   fontFamily: "Arial",
                 }}
               >
-                <Box style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <Box
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    "@media only screen and (min-width: 320px) and (max-width: 424px)":
+                      {
+                        fontSize: "12px",
+                      },
+                  }}
+                >
                   {product.title}
                 </Box>
 
-                <Box style={{ fontSize: "25px", color: "green" }}>
+                <Box
+                  sx={{
+                    fontSize: "25px",
+                    color: "green",
+                    "@media only screen and (min-width: 320px) and (max-width: 424px)":
+                      {
+                        fontSize: "12px",
+                      },
+                  }}
+                >
                   ${product.price}
                 </Box>
-                <Box sx={{ display: "flex" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    "@media only screen and (min-width: 320px) and (max-width: 424px)":
+                      {
+                        fontSize: "12px",
+                      },
+                  }}
+                >
                   <Rating name="read-only" value={5} readOnly size="small" />
                   <Box component="span">(221)</Box>
                 </Box>
-                <Box style={{ fontSize: "14px" }}>{product.description}</Box>
+                <Box
+                  sx={{
+                    fontSize: "14px",
+                    "@media only screen and (min-width: 320px) and (max-width: 424px)":
+                      {
+                        fontSize: "12px",
+                      },
+                  }}
+                >
+                  {product.description}
+                </Box>
                 <Box
                   sx={{
                     display: "flex",
@@ -143,10 +192,26 @@ const OneCart = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Button variant="outlined" onClick={() => handleAdd(product)}>
+                  <Button
+                    sx={{
+                      "@media only screen and (min-width: 320px) and (max-width: 424px)":
+                        {
+                          fontSize: "12px",
+                          height: "36px",
+                        },
+                    }}
+                    variant="outlined"
+                    onClick={() => handleAdd(product)}
+                  >
                     Add to cart
                   </Button>
                   <Button
+                    sx={{
+                      "@media only screen and (min-width: 320px) and (max-width: 424px)":
+                        {
+                          fontSize: "12px",
+                        },
+                    }}
                     variant="outlined"
                     onClick={() =>
                       !isFavorite

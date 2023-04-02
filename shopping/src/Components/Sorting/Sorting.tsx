@@ -67,7 +67,15 @@ const Sorting = ({ products }: Props) => {
         }}
       >
         <SearchField onSearch={handleSearch} />
-        <FormControl variant="outlined">
+        <FormControl
+          variant="outlined"
+          sx={{
+            "@media only screen and (min-width: 320px) and (max-width: 424px)":
+              {
+                width: "100px",
+              },
+          }}
+        >
           <InputLabel htmlFor="sort-by">Sort By</InputLabel>
           <Select
             native

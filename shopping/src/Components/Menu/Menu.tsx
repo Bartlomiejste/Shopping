@@ -5,6 +5,7 @@ import { BoxStyle, BreakPointTheme } from "../BreakpointsMenu/BreakpointsMenu";
 import { Navigation } from "../Navigation/Navigation";
 import ShoppingCartIcon from "../ShoppingCartIcon/ShoppingCartIcon";
 import { useState } from "react";
+import imgsales from "../../assets/sales8.png";
 
 const Menu = () => {
   const [cartOpen, setCartOpen] = useState(false);
@@ -14,16 +15,20 @@ const Menu = () => {
         <Cart />
       </Drawer>
       <Box
-        sx={{
-          width: "100%",
-          height: "500px",
+        component="img"
+        src={imgsales}
+        style={{
+          maxWidth: "100%",
+          height: "auto",
           marginTop: "150px",
-          backgroundImage: `url(${require("../../assets/sales8.png")})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
         }}
+        alt="imgSales"
       />
-      <Box sx={{ ...BoxStyle(BreakPointTheme) }}>
+      <Box
+        sx={{
+          ...BoxStyle(BreakPointTheme),
+        }}
+      >
         <Typography
           sx={{
             fontFamily: "Playfair Display, Arial, sans-serif",
@@ -31,6 +36,13 @@ const Menu = () => {
             width: "20%",
             padding: "20px",
             color: "#073D29",
+            "@media only screen and (min-width: 320px) and (max-width: 424px)":
+              {
+                display: "none",
+              },
+            "@media only screen and (min-width: 425px)": {
+              fontSize: "16px",
+            },
           }}
         >
           My Shop

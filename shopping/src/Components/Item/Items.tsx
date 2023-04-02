@@ -24,6 +24,7 @@ const Item = styled(Paper)(() => ({
 const Items = ({ item }: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const handleAdd = (cartItems: CartProductType) => {
     dispatch(addToCart(cartItems));
   };
@@ -38,6 +39,9 @@ const Items = ({ item }: Props) => {
         justifyContent: "space-around",
         alignItems: "center",
         padding: "20px",
+        "@media only screen and (min-width: 320px) and (max-width: 424px)": {
+          width: "220px",
+        },
       }}
     >
       <img

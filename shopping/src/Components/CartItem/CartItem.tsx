@@ -32,7 +32,6 @@ const CartItem = () => {
   const handleDecrease = (id: number) => {
     dispatch(decreaseToCart(id));
   };
-  console.log(cartItems);
 
   return (
     <>

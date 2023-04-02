@@ -11,7 +11,15 @@ const Cart = () => {
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
 
   return (
-    <Box sx={{ width: "50vw", p: "20px" }}>
+    <Box
+      sx={{
+        width: "50vw",
+        p: "20px",
+        "@media only screen and (min-width: 320px) and (max-width: 424px)": {
+          width: "90vw",
+        },
+      }}
+    >
       <Typography variant="h4">Your Shopping Cart</Typography>
       {cartItems.length === 0 ? (
         <Typography>No items in cart.</Typography>
